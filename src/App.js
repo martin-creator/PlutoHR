@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import Sidebar from "./Component/Sidebar";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
+import Home from "./Component/Home";
+import Account from "./Component/Account";
+import Leave from "./Component/Leave";
+import SignOut from "./Component/SignOut";
+import Report from "./Component/Report";
+import Login from "./Component/Login";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+export default function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  //When user signout
+  const handleSignOut = () => {
+    setIsLoggedIn(false);
+  };
+
+  return isLoggedIn ? (
+    <BrowserRouter>
+      <div className="container">
+        <div className="sidebar">
+          <Sidebar />
+        </div>
+        <div className="content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/account" element={<Account />} />
+            <Route path="/leave" element={<Leave />} />
+            <Route path="/report" element={<Report />} />
+            <Route path="/signout" element={<SignOut  onSignOut={handleSignOut}/>} />
+          </Routes>
+        </div>
+      </div>
+    </BrowserRouter>
+  ) : (
+    <Login onLogin={() => setIsLoggedIn(true)} />
   );
 }
-
-export default App;
