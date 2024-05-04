@@ -7,10 +7,11 @@ import Leave from "./Component/Leave";
 import SignOut from "./Component/SignOut";
 import Report from "./Component/Report";
 import Login from "./Component/Login";
+import TopBar from "./Component/TopBar";
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  
   //When user signout
   const handleSignOut = () => {
     setIsLoggedIn(false);
@@ -23,6 +24,7 @@ export default function App() {
           <Sidebar />
         </div>
         <div className="content">
+          <TopBar />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/account" element={<Account />} />
