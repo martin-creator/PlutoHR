@@ -11,7 +11,8 @@ const Sidebar = () => {
         <hr />
         <div className='nav-bar'>
                 <Link className='nav-link' to='/'><span><FaHome /></span>Home</Link>
-                <Link className='nav-link' to='account'> <span><FaUser /></span> Account</Link>
+                <Link className='nav-link' to='employee'><span><FaHome /></span>Employee</Link>
+                <Link className='nav-link' to='department'> <span><FaUser /></span> Department</Link>
                 <Link className='nav-link' to='leave'><span><FaPaperPlane /></span> Leave</Link>
                 <Link className='nav-link' to='report'><span><FaTable /></span> Report</Link>
         </div>
