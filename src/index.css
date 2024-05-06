@@ -18,7 +18,7 @@ body{
 }
 
 .sidebar{
-  width: 210px;
+  width: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -91,9 +91,15 @@ body{
   padding-bottom: 10px;
   cursor: pointer;
   color: #000;
+  font-weight: bold;
 }
 
-.nav-link:hover, .nav-link:active{
+.nav-link:hover{
+  color: #000;
+  background-color: rgb(210, 209, 209);
+}
+
+.nav-link.active{
   color: #fff;
   background-color: grey;
 }
@@ -219,4 +225,137 @@ body{
 .signout-button:hover{
   background-color: #1b1a1a;
   color: #fff;
+}
+
+/* Departments */
+.department{
+  width: 100%;
+}
+
+.dept-heading{
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  box-shadow: 0px 15px 68px -3px rgba(0,0,0,0.1);
+}
+
+.dept-heading span{
+  margin-right: 5px;
+}
+
+.dept-details{
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.dept-details h4{
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding-bottom: 20px;
+}
+
+.add-dept{
+  grid-column: 1/2;
+  height: fit-content;
+  padding: 20px;
+  box-shadow: 0px 15px 68px -3px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.add-dept hr{
+  margin-bottom: 20px;
+}
+
+.add-dept label, input{
+  margin-bottom: 10px;
+}
+
+.add-dept input{
+  height: 30px;
+  font-size: 1.1rem;
+  padding-left: 10px;
+}
+
+.dept-btn{
+  width: 80%;  
+}
+
+.dept-save{
+  width: 90px;
+  height: 20px;
+  background-color: #3aea66;
+  margin-right: 20px;
+  text-align: center;
+  border-radius: 5px;
+  border: none;
+}
+
+.dept-cancel{
+  background-color: #ff4f3f;
+  width: 90px;
+  height: 20px;
+  margin-right: 20px;
+  text-align: center;
+  border-radius: 5px;
+  border: none;
+}
+
+.dept-cancel:hover,
+.dept-save:hover{
+  background-color: #acaaaa;
+  cursor: pointer;
+}
+
+.dept-display{
+  grid-column: 2/4;
+  height: fit-content;
+  padding: 20px;
+  box-shadow: 0px 15px 68px -3px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.dept-table thead tr{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.dept-table tbody tr{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.dept-edit-btn{
+  margin:0 20px;
+  cursor: pointer;
+}
+
+.dept-delete-btn{
+  cursor: pointer;
+}
+
+.dept-display table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.dept-display th, .dept-display td {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.dept-display th {
+  background-color: #f2f2f2;
 }
