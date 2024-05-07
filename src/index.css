@@ -359,3 +359,149 @@ body{
 .dept-display th {
   background-color: #f2f2f2;
 }
+
+/* Employee Page */
+
+.employee{
+  width: 100%;
+}
+
+.employee-heading{
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  box-shadow: 0px 15px 68px -3px rgba(0,0,0,0.1);
+}
+
+.employee-heading span{
+  padding-right: 5px;
+}
+
+.employee-details{
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.employee-buttons{
+  width: 100%;
+  text-align: left;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.add-employee-button{
+  width: 130px;
+  height: 25px;
+  margin-right: 5px;
+  background-color: grey;
+  border: none;
+  color: #f2f2f2;
+}
+
+.employee-list-button{
+  width: 130px;
+  height: 25px;
+  margin-right: 5px;
+  background-color: grey;
+  border: none;
+  color: #f2f2f2;
+}
+
+.add-employee-button:hover,
+.add-employee-button.active,
+.employee-list-button:hover,
+.employee-list-button.active{
+  background-color: #ffff;
+  color: #000;
+  cursor: pointer;
+}
+
+.employee-display{
+  padding-top: 20px;
+  padding-bottom: 20px;
+  width: 99%;
+  overflow-x:auto;
+  box-shadow: 0px 15px 68px -3px rgba(0,0,0,0.1);
+}
+
+.employee-display h4{
+  padding-top: 5px;
+  padding-bottom: 10px;
+  border-bottom:2px solid grey ;
+}
+
+.employee-display table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.employee-details table thead{
+  border-bottom: 1px solid grey;
+}
+
+.employee-display th, td {
+  text-align: left;
+  padding: 5px;
+}
+
+.employee-display tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.add-employee-form{
+  width: 96%;
+  padding: 20px;
+  box-shadow: 0px 15px 68px -3px rgba(0,0,0,0.1);
+}
+
+.add-employee-form h4{
+  padding-top: 10px;
+  padding-bottom: 5px;
+}
+
+.add-employee-input-container{
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  padding-top: 10px;
+}
+
+.add-employee-input-container div{
+  display: flex;
+  flex-direction: column;
+}
+
+.add-employee-input-container div input{
+  height: 25px;
+  margin-top: 5px;
+}
+
+.add-employee-input-container div select{
+  height: 30px;
+  margin-top: 5px;
+}
+
+.add-employee-form input[type="submit"]{
+  width: 170px;
+  height: 30px;
+  background-color: grey;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+}
+
+.add-employee-form input[type="submit"]:hover{
+  background-color: #bebaba;
+  color: #000;
+}
+
+.employee-action-buttons{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
