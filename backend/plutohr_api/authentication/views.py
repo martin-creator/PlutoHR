@@ -1,5 +1,5 @@
 from authentication.models import User
-from authentication.serializers import UserSerializer, UserLoginSerializer
+from authentication.serializers import UserSerializer, UserLoginSerializer, UserLogoutSerializer
 from django.contrib.auth import authenticate, login
 from rest_framework import status
 from rest_framework.response import Response
@@ -34,12 +34,20 @@ class UserRegistrationView(APIView):
 
     # add structure of the data needed for the post request
 
+    
+
     @extend_schema(
         parameters=[
             OpenApiParameter(name='username', type=str, location=OpenApiParameter.QUERY, required=True),
             OpenApiParameter(name='email', type=str, location=OpenApiParameter.QUERY, required=True),
             OpenApiParameter(name='role', type=str, location=OpenApiParameter.QUERY, required=True),
             OpenApiParameter(name='password', type=str, location=OpenApiParameter.QUERY, required=True),
+            OpenApiParameter(name='phone_number', type=str, location=OpenApiParameter.QUERY, required=False),
+            OpenApiParameter(name='address', type=str, location=OpenApiParameter.QUERY, required=False),
+            OpenApiParameter(name='job_title', type=str, location=OpenApiParameter.QUERY, required=False),
+            OpenApiParameter(name='department', type=str, location=OpenApiParameter.QUERY, required=False),
+            OpenApiParameter(name='job_status', type=str, location=OpenApiParameter.QUERY, required=False),
+            
         ],
         examples=[
             OpenApiExample(
@@ -50,7 +58,13 @@ class UserRegistrationView(APIView):
                     "username": "username",
                     "email": "email",
                     "role": "role",
-                    "password": "password"
+                    "password": "password",
+                    "phone_number": "phone_number",
+                    "address": "address",
+                    "job_title": "job_title",
+                    "department": "department",
+                    "job_status": "job_status"
+
                 }
             )
         ], 
@@ -104,6 +118,8 @@ class UserLoginView(APIView):
     )
     
     def post(self, request, *args, **kwargs):
+
+        serializer = UserLoginSerializer(data=request.data)
         username = request.data.get('username')
         password = request.data.get('password')
 
@@ -134,6 +150,8 @@ class UserLogoutView(APIView):
 
 
     permission_classes = [IsAuthenticated]
+
+    # serializer_class = UserLogoutSerializer
 
     
     @extend_schema(
