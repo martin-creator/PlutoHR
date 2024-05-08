@@ -47,7 +47,7 @@ class UserRegistrationView(APIView):
             OpenApiParameter(name='job_title', type=str, location=OpenApiParameter.QUERY, required=False),
             OpenApiParameter(name='department', type=str, location=OpenApiParameter.QUERY, required=False),
             OpenApiParameter(name='job_status', type=str, location=OpenApiParameter.QUERY, required=False),
-            
+
         ],
         examples=[
             OpenApiExample(
@@ -115,6 +115,7 @@ class UserLoginView(APIView):
         ], 
 
         responses={200: OpenApiResponse(response=OpenApiTypes.OBJECT, description='User data')}
+
     )
     
     def post(self, request, *args, **kwargs):
@@ -164,6 +165,7 @@ class UserLogoutView(APIView):
         token.delete()
 
         return Response({'detail': 'Successfully logged out.'})
+    
 
 
 
