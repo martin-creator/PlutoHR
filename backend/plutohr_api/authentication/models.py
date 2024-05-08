@@ -9,4 +9,27 @@ class User(AbstractUser):
         ('Manager', 'Manager'),
         ('Employee', 'Employee'),
     )
+
+    DEPARTMENT_CHOICES = (
+        ('HR', 'HR'),
+        ('IT', 'IT'),
+        ('Finance', 'Finance'),
+        ('Admin', 'Admin'),
+    )
+
+    STATUS_CHOICES = (
+        ('Active', 'Active'),
+        ('Inactive', 'Inactive'),
+        ('Suspended', 'Suspended'),
+        ('Leave', 'Leave')
+    )
+
+
     role = models.CharField(max_length=15, choices=ROLE_CHOICES)
+    email = models.EmailField(unique=True, blank=True, null=True)
+    phone_number = models.CharField(max_length=15, blank=True, null=True)
+    address = models.CharField(max_length=255, blank=True, null=True)
+    job_title = models.CharField(max_length=255, blank=True, null=True)
+    department = models.CharField(max_length=255, blank=True, null=True, choices=DEPARTMENT_CHOICES)
+    job_status = models.BooleanField(max_length=255, blank=True, null=True, choices=STATUS_CHOICES)
+
