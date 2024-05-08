@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { FaBorderAll } from 'react-icons/fa';
 import { TiTick } from "react-icons/ti";
-import {Table} from 'flowbite-react'
 
 const Department = () => {
   const [departments, setDepartments] = useState([]);
@@ -69,26 +68,28 @@ const Department = () => {
         <div className='dept-display'>
           <h4>Departments</h4>
           <hr />
-          <Table>
-            <Table.Head>
-              <Table.HeadCell>Department Name</Table.HeadCell>
-              <Table.HeadCell>Action</Table.HeadCell>
-            </Table.Head>
-            <Table.Body>
+          <table>
+            <thead>
+              <tr>
+                <th>Department Name</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
             {departments.map((dept, index) => (
-              <Table.Row key={index}>
-                <Table.Cell>
+              <tr key={index}>
+                <td>
                   {dept}
-                </Table.Cell>
-                <Table.Cell>
+                </td>
+                <td>
                   <button className='dept-edit-btn' onClick={() => handleEdit(index)}>Edit</button>
                   <button className='dept-delete-btn' onClick={() => handleDelete(index)}>Delete</button>
-                </Table.Cell>
-              </Table.Row>
+                </td>
+              </tr>
             )
           )}
-            </Table.Body>
-          </Table>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
