@@ -1,4 +1,3 @@
-// App.js
 import React, { useState } from "react";
 import Sidebar from "./Component/Sidebar";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
@@ -10,9 +9,16 @@ import Login from "./Component/Login";
 import TopBar from "./Component/TopBar";
 import Department from "./Component/Department";
 import Employee from "./Component/Employee";
+import Attendance from "./Component/Attendance";
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true); 
+
+  // Toggle sidebar
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
 
   // When user signs out
   const handleSignOut = () => {
@@ -21,17 +27,18 @@ export default function App() {
 
   return isLoggedIn ? (
     <BrowserRouter>
-      <div className="container">
+      <div className={`container ${isSidebarOpen ? "sidebar-open" : "sidebar-close"}`}>
         <div className="sidebar">
-          <Sidebar />
+        <Sidebar toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
         </div>
         <div className="content">
-          <TopBar />
+          <TopBar toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="employee" element={<Employee />} />
             <Route path="/department" element={<Department />} />
             <Route path="/leave" element={<Leave />} />
+            <Route path="/attendance" element={<Attendance />} />
             <Route path="/report" element={<Report />} />
             <Route
               path="/signout"
