@@ -1,26 +1,77 @@
 import React, { useState } from 'react';
-import { FaHome, FaUser, FaPaperPlane, FaSignOutAlt, FaTable } from 'react-icons/fa';
+import { FaHome, FaPaperPlane, FaSignOutAlt, FaTable, FaCalendarCheck, FaUsers } from 'react-icons/fa';
+import {AiOutlinePartition} from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 
-const Sidebar = () => {
+const Sidebar = ( { toggleSidebar, isSidebarOpen }) => {
   const [activeMenu, setActiveMenu] = useState(null);
 
   const handleMenuClick = (menu) => {
     setActiveMenu(menu);
   };
 
+  const handleLinkClick = () => {
+    if (isSidebarOpen) {
+      toggleSidebar();
+    }
+  };
+
+  const links = [
+    {
+      name: 'Home',
+      icon: <FaHome />,
+      path: '/',
+    },
+    {
+      name: 'Employee',
+      icon: <FaUsers />,
+      path: 'employee',
+    },
+    {
+      name: 'Department',
+      icon: <AiOutlinePartition />,
+      path: 'department',
+    },
+    {
+      name: 'Leave',
+      icon: <FaPaperPlane />,
+      path: 'leave',
+    },
+    {
+      name: 'Attendance',
+      icon: <FaCalendarCheck />,
+      path: 'attendance',
+    },
+    {
+      name: 'Report',
+      icon: <FaTable />,
+      path: 'report',
+    },
+  ];
+
   return (
-    <div className='sidenav'>
+    <div className={`sidenav ${isSidebarOpen ? "active" : ""}`}>
       <Link className='logo-con' to='/'>
         <img className='logo' src='https://www.creativefabrica.com/wp-content/uploads/2021/03/20/Mountain-logo-Design-Graphics-9785421-1-580x435.png' alt='Logo' />
       </Link>
       <hr />
       <div className='nav-bar'>
-        <Link className={`nav-link ${activeMenu === 'home' ? 'active' : ''}`} to='/' onClick={() => handleMenuClick('home')}><span><FaHome /></span>Home</Link>
-        <Link className={`nav-link ${activeMenu === 'employee' ? 'active' : ''}`} to='employee' onClick={() => handleMenuClick('employee')}><span><FaHome /></span>Employee</Link>
-        <Link className={`nav-link ${activeMenu === 'department' ? 'active' : ''}`} to='department' onClick={() => handleMenuClick('department')}><span><FaUser /></span> Department</Link>
-        <Link className={`nav-link ${activeMenu === 'leave' ? 'active' : ''}`} to='leave' onClick={() => handleMenuClick('leave')}><span><FaPaperPlane /></span> Leave</Link>
-        <Link className={`nav-link ${activeMenu === 'report' ? 'active' : ''}`} to='report' onClick={() => handleMenuClick('report')}><span><FaTable /></span> Report</Link>
+          {
+            links.map((link)=>(
+              <Link 
+                key={link.name}
+                className={`nav-link ${activeMenu === link.name ? 'active' : ''}`}
+                to={link.path}
+                onClick={() => {
+                  handleLinkClick();
+                  handleMenuClick(link.name);
+                }}              
+              >
+                <span>{link.icon}</span>
+                {link.name}
+              </Link>
+            ))
+          }
       </div>
       <hr />
       <div className='sign-out-cont'>
