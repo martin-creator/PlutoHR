@@ -1,29 +1,19 @@
 import { useState } from 'react';
 import { FaEdit, FaList, FaPlus, FaTrash, FaUsers } from 'react-icons/fa';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
 
 const Employee = () => {
-  const [showAddEmployee, setShowAddEmployee] = useState(false);
-  const [showEmployeeList, setShowEmployeeList] = useState(true);
   const [employees, setEmployees] = useState([]);
-
-  const toggleAddEmployee = ()=>{
-    setShowAddEmployee(!showAddEmployee);
-    setShowEmployeeList(false)
-  }
-
-  const toggleEmployeeList = ()=>{
-    setShowEmployeeList(!showEmployeeList);
-    setShowAddEmployee(false)
-  }
 
   const handleAddEmployee = (newEmployee) => {
     setEmployees([...employees, newEmployee]); 
-    setShowAddEmployee(false);
   };
 
-  const handleEmployeeListOpen = ()=>{
-    setShowEmployeeList(true)
-  }
+  const handleDeleteEmployee = (id) => {
+    const updatedEmployees = employees.filter((employee) => employee.id !== id);
+    setEmployees(updatedEmployees);
+  }; 
 
   return (
     <div className='employee'>
@@ -31,22 +21,21 @@ const Employee = () => {
         <span><FaUsers /></span>
         Employee
       </h3>
-      
+
       <div className='employee-details'> 
-        <div className='employee-buttons'>
-          <button 
-            className='add-employee-button' 
-            onClick={toggleAddEmployee}
-            disabled={showAddEmployee}
-          > <FaPlus /> Add Employee</button>
-          <button 
-            className='employee-list-button' 
-            onClick={toggleEmployeeList}
-            disabled={showEmployeeList}
-          > <FaList /> Employee List</button>
-        </div>    
-        {showEmployeeList ? <EmployeeTable employees={employees} /> : null} 
-        {showAddEmployee ? <AddEmployee onSubmit={handleAddEmployee} onEmployeeAdd={handleEmployeeListOpen} /> : null} 
+        <Tabs>
+          <TabList>
+            <Tab><FaPlus />Add Employee</Tab>
+            <Tab><FaUsers />Employee List</Tab>
+          </TabList>
+
+          <TabPanel>
+            <AddEmployee onSubmit={handleAddEmployee} />
+          </TabPanel>
+          <TabPanel>
+            <EmployeeTable employees={employees} onDelete={handleDeleteEmployee}/>
+          </TabPanel>
+        </Tabs>   
       </div>
     </div>
   )
@@ -97,7 +86,7 @@ function EmployeeTable({ employees }){
   )
 }
 
-function AddEmployee({ onSubmit, onEmployeeAdd }){
+function AddEmployee({ onSubmit}){
   const [employeeData, setEmployeeData] = useState({
     id: '',
     name: '',
@@ -116,7 +105,6 @@ function AddEmployee({ onSubmit, onEmployeeAdd }){
   const handleSubmit = (event)=>{
     event.preventDefault();
     onSubmit(employeeData);
-    onEmployeeAdd();
     setEmployeeData({
       id: '',
       name: '',

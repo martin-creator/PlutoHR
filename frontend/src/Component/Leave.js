@@ -36,7 +36,7 @@ export default Leave
 //Pending Leave Request component
 function LeaveRequest() { 
   return (
-    <div className='attendance-display'>
+    <div className='leave-display'>
       <h4>Pending Leave Request</h4>
       <table>
         <thead>
@@ -46,21 +46,26 @@ function LeaveRequest() {
             <th>Email</th>
             <th>Position</th>
             <th>Department</th>
-            <th>TimeIn</th>
-            <th>Timeout</th>
-            <th>Hours worked</th>
+            <th>Leave Balance</th>
+            <th>Days Requested</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
           <tr> 
             <td></td>
             <td></td>
-            <td><a href={`mailto: steph@plutohr.com`}>steph@plutohr.com</a></td>
+            <td>
+              {/* <a href={`mailto: steph@plutohr.com`}>steph@plutohr.com</a> */}
+              </td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
+            <td className='leave-action-button'>
+              <button className='leave-accept'>Accept</button>
+              <button className='leave-reject'>Reject</button>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -72,31 +77,36 @@ function LeaveRequest() {
 
 function AcceptedLeaveRequest() { 
   return (
-    <div className='attendance-display'>
+    <div className='leave-display'>
       <h4>Accepted Leave Request</h4>
       <table>
         <thead>
           <tr>
-            <th>Date</th>
+          <th>Date</th>
             <th>Employee Name</th>
             <th>Email</th>
             <th>Position</th>
             <th>Department</th>
-            <th>TimeIn</th>
-            <th>Timeout</th>
-            <th>Hours worked</th>
+            <th>Leave Balance</th>
+            <th>Days Requested</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
           <tr> 
             <td></td>
             <td></td>
-            <td><a href={`mailto: steph@plutohr.com`}>steph@plutohr.com</a></td>
+            <td>
+              {/* <a href={`mailto: steph@plutohr.com`}>steph@plutohr.com</a> */}
+            </td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
+            <td className='leave-action-button'>
+              <button className='leave-accept'>Accept</button>
+              <button className='leave-reject'>Reject</button>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -107,31 +117,36 @@ function AcceptedLeaveRequest() {
 //Rejected leave component
 function RejectedLeaveRequest() { 
   return (
-    <div className='attendance-display'>
+    <div className='leave-display'>
       <h4>Rejected Leave Request</h4>
       <table>
         <thead>
           <tr>
-            <th>Date</th>
+          <th>Date</th>
             <th>Employee Name</th>
             <th>Email</th>
             <th>Position</th>
             <th>Department</th>
-            <th>TimeIn</th>
-            <th>Timeout</th>
-            <th>Hours worked</th>
+            <th>Leave Balance</th>
+            <th>Days Requested</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
           <tr> 
             <td></td>
             <td></td>
-            <td><a href={`mailto: steph@plutohr.com`}>steph@plutohr.com</a></td>
+            <td>
+              {/* <a href={`mailto: steph@plutohr.com`}>steph@plutohr.com</a> */}
+            </td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
+            <td className='leave-action-button'>
+              <button className='leave-accept'>Accept</button>
+              <button className='leave-reject'>Reject</button>
+            </td>
           </tr>
         </tbody>
       </table>
