@@ -245,11 +245,21 @@ body{
 }
 
 /* Home */
-.home{
+.home,
+.employee,
+.department,
+.leave,
+.attendance,
+.report{
   width: 100%;
 }
 
-.home-heading{
+.home-heading,
+.employee-heading,
+.dept-heading,
+.leave-heading,
+.attendance-heading,
+.report-heading{
   width: 100%;
   display: flex;
   justify-content: flex-start;
@@ -259,7 +269,12 @@ body{
   box-shadow: 0px 15px 68px -3px rgba(0,0,0,0.1);
 }
 
-.home-heading span{
+.home-heading span,
+.employee-heading span,
+.dept-heading span,
+.leave-heading span,
+.attendance-heading span,
+.report-heading span{
   padding-right: 5px;
 }
 
@@ -301,24 +316,6 @@ body{
 }
 
 /* Departments */
-.department{
-  width: 100%;
-}
-
-.dept-heading{
-  width: 100%;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  box-shadow: 0px 15px 68px -3px rgba(0,0,0,0.1);
-}
-
-.dept-heading span{
-  margin-right: 5px;
-}
-
 .dept-details{
   width: 100%;
   display: grid;
@@ -453,25 +450,6 @@ body{
 }
 
 /* Employee Page */
-
-.employee{
-  width: 100%;
-}
-
-.employee-heading{
-  width: 100%;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  box-shadow: 0px 15px 68px -3px rgba(0,0,0,0.1);
-}
-
-.employee-heading span{
-  padding-right: 5px;
-}
-
 .employee-details{
   width: 100%;
   padding-top: 10px;
@@ -610,6 +588,48 @@ body{
   border: none;
   border-radius: 2px;
   padding: 5px;
+}
+
+/* Attendance Page */
+.attendance-display{
+  padding-top: 20px;
+  padding-bottom: 20px;
+  width: 99%;
+  margin: auto;
+  padding-left: 5px;
+  overflow-x:auto;
+  box-shadow: 0px 15px 68px -3px rgba(0,0,0,0.1);
+}
+
+.attendance-display div{
+  border-bottom:2px solid grey ;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.attendance-display div input{
+  grid-column: 1/2;
+  height: 30px;
+  padding-left: 10px;
+  font-size: 1.1rem;
+}
+
+.attendance-display table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.attendance-display table thead{
+  border-bottom: 1px solid grey;
+}
+
+.attendance-display th, td {
+  text-align: left;
+  padding: 5px;
+}
+
+.attendance-display tr:nth-child(even) {
+  background-color: #f2f2f2;
 }
 
 /* Responsiveness */
