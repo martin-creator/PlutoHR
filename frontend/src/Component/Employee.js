@@ -31,6 +31,7 @@ const Employee = () => {
         <span><FaUsers /></span>
         Employee
       </h3>
+      
       <div className='employee-details'> 
         <div className='employee-buttons'>
           <button 
