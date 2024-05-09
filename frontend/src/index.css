@@ -590,6 +590,12 @@ body{
   padding: 5px;
 }
 
+.employee-delete-button:hover,
+.employee-edit-button:hover{
+  cursor: pointer;
+  background-color: grey;
+}
+
 /* Attendance Page */
 .attendance-display{
   padding-top: 20px;
