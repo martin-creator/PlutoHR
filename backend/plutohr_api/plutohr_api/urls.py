@@ -26,10 +26,6 @@ urlpatterns = [
     path('api/v1/auth/', include('authentication.urls')),
     path('api/v1/employee/', include('employee.urls')),
     path('api/v1/manager/', include('manager.urls')),
-
-
-
-
 ]
 
 
