@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'authentication',
     'drf_spectacular',
     'employee',
+    'manager',
 ]
 
 MIDDLEWARE = [
