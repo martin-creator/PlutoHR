@@ -130,7 +130,7 @@ class EmployeeListView(APIView):
     
     """
 
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     
     @extend_schema(
         responses={200: OpenApiResponse(response=OpenApiTypes.OBJECT, description='List of employees')}
@@ -158,7 +158,7 @@ class EmployeeDetailView(APIView):
 
 
     """
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     
     @extend_schema(
         parameters=[
