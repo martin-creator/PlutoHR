@@ -1,29 +1,39 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaEdit, FaList, FaPlus, FaTrash, FaUsers } from 'react-icons/fa';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
 
 const Employee = () => {
-  const [showAddEmployee, setShowAddEmployee] = useState(false);
-  const [showEmployeeList, setShowEmployeeList] = useState(true);
   const [employees, setEmployees] = useState([]);
-
-  const toggleAddEmployee = ()=>{
-    setShowAddEmployee(!showAddEmployee);
-    setShowEmployeeList(false)
-  }
-
-  const toggleEmployeeList = ()=>{
-    setShowEmployeeList(!showEmployeeList);
-    setShowAddEmployee(false)
-  }
+  const [selectedEmployee, setselectedEmployee] = useState(null)
+  const [activeTab, setActiveTab] = useState(0);
 
   const handleAddEmployee = (newEmployee) => {
-    setEmployees([...employees, newEmployee]); 
-    setShowAddEmployee(false);
+    if (selectedEmployee) {
+      const updatedEmployees = employees.map(employee =>
+        employee.id === selectedEmployee.id ? newEmployee : employee
+      );
+      setEmployees(updatedEmployees);
+      setselectedEmployee(null); 
+    } else {
+      setEmployees([...employees, newEmployee]);
+    }
+    setActiveTab(0); 
   };
 
-  const handleEmployeeListOpen = ()=>{
-    setShowEmployeeList(true)
+  const handleDeleteEmployee = (id) => {
+    const updatedEmployees = employees.filter((employee) => employee.id !== id);
+    setEmployees(updatedEmployees);
+  }; 
+
+  const handleEditEmployee = (employee)=>{
+    setselectedEmployee(employee);
+    setActiveTab(1)
   }
+
+  const handleTabChange = (index) => {
+    setActiveTab(index);
+  };
 
   return (
     <div className='employee'>
@@ -31,21 +41,22 @@ const Employee = () => {
         <span><FaUsers /></span>
         Employee
       </h3>
+
       <div className='employee-details'> 
-        <div className='employee-buttons'>
-          <button 
-            className='add-employee-button' 
-            onClick={toggleAddEmployee}
-            disabled={showAddEmployee}
-          > <FaPlus /> Add Employee</button>
-          <button 
-            className='employee-list-button' 
-            onClick={toggleEmployeeList}
-            disabled={showEmployeeList}
-          > <FaList /> Employee List</button>
-        </div>    
-        {showEmployeeList ? <EmployeeTable employees={employees} /> : null} 
-        {showAddEmployee ? <AddEmployee onSubmit={handleAddEmployee} onEmployeeAdd={handleEmployeeListOpen} /> : null} 
+        <Tabs selectedIndex={activeTab} onSelect={handleTabChange}>
+          <TabList>
+            <Tab><FaUsers />Employee List</Tab>
+            <Tab><FaPlus />Add Employee</Tab>
+          </TabList>
+
+          <TabPanel>
+            <EmployeeTable employees={employees} onDelete={handleDeleteEmployee} onEdit={handleEditEmployee}/>
+          </TabPanel>
+          <TabPanel>
+            <AddEmployee onSubmit={handleAddEmployee} formData={selectedEmployee} setActiveTab={setActiveTab}/>
+          </TabPanel>
+          
+        </Tabs>   
       </div>
     </div>
   )
@@ -53,7 +64,14 @@ const Employee = () => {
 
 export default Employee;
 
-function EmployeeTable({ employees }){
+function EmployeeTable({ employees, onDelete, onEdit }){
+  const handleDelete = (id) => {
+    onDelete(id);
+  }
+
+  const handleEdit = (employee)=>{
+    onEdit(employee);
+  }
   return(
     <div className='employee-display'>
           <h4><span><FaList /></span> Employee List</h4>
@@ -74,7 +92,7 @@ function EmployeeTable({ employees }){
             <tbody>
             {
               employees.map((employee)=>(
-                <tr key={employees.id}>
+                <tr key={employee.id}>
                   <td>{employee.id}</td>
                   <td>{employee.name}</td>
                   <td><a href={`mailto: ${employee.email}`}>{employee.email}</a></td>
@@ -84,8 +102,8 @@ function EmployeeTable({ employees }){
                   <td>{employee.gender}</td>
                   <td>{employee.address}</td>
                   <td className='employee-action-buttons'>
-                    <button className='employee-edit-button'><FaEdit /></button>
-                    <button className='employee-delete-button'><FaTrash /> </button>
+                    <button className='employee-edit-button' onClick={()=>handleEdit(employee)}><FaEdit /></button>
+                    <button className='employee-delete-button' onClick={()=>handleDelete(employee.id)}><FaTrash /> </button>
                   </td>
                 </tr>
               ))
@@ -96,7 +114,7 @@ function EmployeeTable({ employees }){
   )
 }
 
-function AddEmployee({ onSubmit, onEmployeeAdd }){
+function AddEmployee({ onSubmit, formData, setActiveTab}){
   const [employeeData, setEmployeeData] = useState({
     id: '',
     name: '',
@@ -108,6 +126,12 @@ function AddEmployee({ onSubmit, onEmployeeAdd }){
     address: '',
   });
 
+  useEffect(() => {
+    if (formData) {
+      setEmployeeData(formData);
+    }
+  }, [formData]);
+
   const handleChange = (event) => {
     setEmployeeData({ ...employeeData, [event.target.name]: event.target.value });
   };
@@ -115,7 +139,6 @@ function AddEmployee({ onSubmit, onEmployeeAdd }){
   const handleSubmit = (event)=>{
     event.preventDefault();
     onSubmit(employeeData);
-    onEmployeeAdd();
     setEmployeeData({
       id: '',
       name: '',
@@ -126,7 +149,7 @@ function AddEmployee({ onSubmit, onEmployeeAdd }){
       gender: '',
       address: '',
     })
-
+    setActiveTab(0);
   }
 
   const departmentOptions = [
@@ -143,7 +166,7 @@ function AddEmployee({ onSubmit, onEmployeeAdd }){
 
   return(
     <form className='add-employee-form' onSubmit={handleSubmit}>
-          <h4><span><FaUsers /></span>Add Employee</h4>
+          <h4><span><FaUsers /></span>{formData ? 'Edit Employee' : 'Add Employee'}</h4>
           <hr />
           <div className='add-employee-input-container'>
             <div>
@@ -227,7 +250,7 @@ function AddEmployee({ onSubmit, onEmployeeAdd }){
               />
             </div>
           </div>
-          <input type='submit' value="Add Employee" />
+          <input type='submit' value={formData ? 'Update Employee' : 'Add Employee'} />
         </form>
   )
 }

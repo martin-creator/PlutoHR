@@ -3,7 +3,7 @@ function Login({ onLogin }) {
   return (
     <div className="login-container">
         <form className="login-form">
-            <h2 className="login-title">Welcome to HMS</h2>        
+            <h2 className="login-title">Welcome to PlutoHR</h2>        
             <div>
                 <label className="label" htmlFor="email1">Your Email</label>
                 <input className="login-email" id="email1" type="email" placeholder="johndoe@example.com" required />
