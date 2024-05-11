@@ -122,7 +122,7 @@ class ManagerDetailView(APIView):
 
         """
       
-      permission_classes = [IsAuthenticated]
+    #   permission_classes = [IsAuthenticated]
       @extend_schema(
         parameters=[
             OpenApiParameter(name='id', type=int, location=OpenApiParameter.PATH, required=True)
