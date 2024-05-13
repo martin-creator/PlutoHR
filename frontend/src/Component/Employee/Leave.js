@@ -103,8 +103,46 @@ function RequestLeave() {
 
 function LeaveBalance() { 
   return (
-    <div className='leave-display'>
-      <h4>Leave Balance</h4>      
+    <div className='leave-balance-container'>
+      <div className='leave-balance'>
+       <h4>Leave Balance</h4> 
+       <details title='Click the arrow to open'>
+        <summary>Annual Leave</summary>
+        <p>Available: 21 days</p>
+        <p>Taken: 0 day</p>
+        </details> 
+        <details title='Click the arrow to open'>
+          <summary>Sick Leave</summary>
+          <p>Available: 10 days</p>
+          <p>Taken: 0 day</p>
+        </details> 
+        <details title='Click the arrow to open'>
+          <summary>Maternity Leave</summary>
+          <p>Available: 30 days</p>
+          <p>Taken: 0 day</p>
+        </details> 
+      </div> 
+      <div className='leave-history'>
+       <h4>Leave History</h4>  
+       <table>
+          <thead>
+            <tr>
+              <th>Leave Period</th>
+              <th>Leave Type</th>
+              <th>Days Taken</th>
+              <th>Reason</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr> 
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+          </tbody>
+        </table>
+      </div>    
     </div>
   )
 }

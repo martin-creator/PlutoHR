@@ -724,6 +724,58 @@ body{
   color: #fff;
 }
 
+.leave-balance-container{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;  
+}
+
+.leave-balance{
+  grid-column: 1/2;
+  box-shadow: 0px 15px 68px -3px rgba(0,0,0,0.1);
+  padding: 20px;
+}
+
+.leave-history{
+  grid-column: 2/3;
+  box-shadow: 0px 15px 68px -3px rgba(0,0,0,0.1);
+  padding: 20px;
+}
+
+.leave-balance h4,
+.leave-history h4{
+  border-bottom: 2px solid grey;
+  padding-bottom: 10px;
+}
+
+.leave-balance details{
+  padding: 10px;
+  cursor: pointer;
+}
+
+.leave-balance details p{
+  padding-top: 10px;
+  padding-left: 10px;
+}
+
+.leave-history table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.leave-history table thead{
+  border-bottom: 1px solid grey;
+}
+
+.leave-history th, td {
+  text-align: left;
+  padding: 5px;
+}
+
+.leave-history tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
 /* Responsiveness */
 
 @media screen and (max-width:900px) {
