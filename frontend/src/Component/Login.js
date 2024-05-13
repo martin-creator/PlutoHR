@@ -13,10 +13,10 @@ function Login({ onLogin }) {
                 <input className="login-pass" id="password1" type="password" required />
             </div>
             <div>
-                <input type="checkbox" id="remember" />
+                <input type="checkbox" id="remember" className="remember" />
                 <label htmlFor="remember">Remember me</label>
             </div>
-            <button className="login-button" type="submit" onClick={onLogin}>Submit</button>
+            <button className="login-button" type="submit" onClick={onLogin}>Login</button>
         </form>
     </div>
   );

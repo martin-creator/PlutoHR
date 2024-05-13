@@ -12,8 +12,8 @@ const Leave = () => {
       </h3>
       <Tabs>
         <TabList>
-          <Tab>Request Leave</Tab>
-          <Tab>Leave Balance</Tab>
+          <Tab>Leave Request</Tab>
+          <Tab>Leave Balance/History</Tab>
         </TabList>
 
         <TabPanel>
@@ -61,46 +61,39 @@ function RequestLeave() {
               />
             </div>
             <div>
-              <label htmlFor='tel'>Phone</label>
+              <label htmlFor='leave'>Leave Type</label>
+              <select name='leave'  required>
+                  <option>Casual Leave</option>
+                  <option>Annual Leave</option>
+                  <option>Maternity Leave</option>
+              </select>
+            </div>
+            <div>
+              <label htmlFor='period'>Leave Period</label>
               <input
-                type='tel'
-                name='tel'
+                type='date'
+                name='period'
                 required
               />
             </div>
             <div>
-              <label htmlFor='position'>Position</label>
+              <label htmlFor='days'>Days requested</label>
               <input
-                type='text'
-                name='position'
+                type='number'
+                name='days'
                 required
               />
             </div>
             <div>
-              <label htmlFor='department'>Department</label>
-              <select name='department' required>
-                  <option >Software</option>
-                  <option >Accounts</option>
-                  <option >Human Resources</option>
-              </select>
-            </div>
-            <div>
-              <label htmlFor='gender'>Gender</label>
-              <select name='gender'  required>
-                  <option>Male</option>
-                  <option>Female</option>
-              </select>
-            </div>
-            <div>
-              <label htmlFor='address'>Address</label>
+              <label htmlFor='reason'>Reason for Leave</label>
               <input
                 type='text'
-                name='address'
+                name='reason'
                 required
               />
             </div>
           </div>
-          <input type='submit' />
+          <input type='submit' className='leave-button' />
         </form>
     </div>
   )
