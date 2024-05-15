@@ -4,7 +4,7 @@ import { FaCalendarCheck } from 'react-icons/fa';
 const Attendance = () => { 
   const attendanceData = useMemo(() => [
     {
-      Date: '30/04/2024',
+      Date: '01/04/2024',
       EmployeeName: 'Steph',
       Email: 'steph@plutohr.com',
       Position: 'Developer',
@@ -14,7 +14,7 @@ const Attendance = () => {
       HoursWorked: '7hr 40 mins',
     },
     {
-      Date: '30/04/2024',
+      Date: '02/04/2024',
       EmployeeName: 'Martin',
       Email: 'martin@plutohr.com',
       Position: 'Developer',
@@ -24,7 +24,7 @@ const Attendance = () => {
       HoursWorked: '8hr 40 mins',
     },
     {
-      Date: '30/04/2024',
+      Date: '03/04/2024',
       EmployeeName: 'Angella',
       Email: 'angel@plutohr.com',
       Position: 'HR',

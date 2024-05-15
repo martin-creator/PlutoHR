@@ -52,22 +52,23 @@ function LeaveRequest() {
           </tr>
         </thead>
         <tbody>
-          <tr> 
-            <td></td>
-            <td></td>
-            <td>
-              {/* <a href={`mailto: steph@plutohr.com`}>steph@plutohr.com</a> */}
+           <tr> 
+              <td>001</td>
+              <td>Steph</td>
+              <td>
+                {/* <a href={`mailto: steph@plutohr.com`}>steph@plutohr.com</a> */}
+                Testing
+                </td>
+              <td>Testing</td>
+              <td>Testing</td>
+              <td>Testing</td>
+              <td></td>
+              <td className='leave-action-button'>
+                <button className='leave-accept'>Accept</button>
+                <button className='leave-reject'>Reject</button>
               </td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td className='leave-action-button'>
-              <button className='leave-accept'>Accept</button>
-              <button className='leave-reject'>Reject</button>
-            </td>
-          </tr>
-        </tbody>
+            </tr>
+          </tbody>
       </table>
     </div>
   )

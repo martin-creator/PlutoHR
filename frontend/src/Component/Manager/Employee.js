@@ -82,7 +82,8 @@ function EmployeeTable({ employees, onDelete, onEdit }){
               <th>Employee Name</th>
               <th>Email</th>
               <th>Phone</th>
-              <th>Position</th>
+              <th>Job Title</th>
+              <th>Job Status</th>
               <th>Department</th>
               <th>Gender</th>
               <th>Address</th>
@@ -98,6 +99,7 @@ function EmployeeTable({ employees, onDelete, onEdit }){
                   <td><a href={`mailto: ${employee.email}`}>{employee.email}</a></td>
                   <td>{employee.tel}</td>
                   <td>{employee.position}</td>
+                  <td>{employee.status}</td>
                   <td>{employee.department}</td>
                   <td>{employee.gender}</td>
                   <td>{employee.address}</td>
@@ -121,6 +123,7 @@ function AddEmployee({ onSubmit, formData, setActiveTab}){
     email: '',
     tel: '',
     position: '',
+    status: '',
     department: '',
     gender: '',
     address: '',
@@ -145,6 +148,7 @@ function AddEmployee({ onSubmit, formData, setActiveTab}){
       email: '',
       tel: '',
       position: '',
+      status: '',
       department: '',
       gender: '',
       address: '',
@@ -158,6 +162,13 @@ function AddEmployee({ onSubmit, formData, setActiveTab}){
     { value: 'Human Resources', label: 'Human Resources' },
     { value: 'Drilling', label: 'Drilling' },
   ];
+
+  const joBStatusOptions = [
+    { value: 'active', label: 'Active' },
+    { value: 'inactive', label: 'Inactive' },
+    { value: 'suspended', label: 'Suspended' },
+  ];
+
 
   const genderOptions = [
     { value: 'male', label: 'Male' },
@@ -210,7 +221,7 @@ function AddEmployee({ onSubmit, formData, setActiveTab}){
               />
             </div>
             <div>
-              <label htmlFor='position'>Position</label>
+              <label htmlFor='position'>JoB Title</label>
               <input
                 type='text'
                 name='position'
@@ -218,6 +229,16 @@ function AddEmployee({ onSubmit, formData, setActiveTab}){
                 onChange={handleChange}
                 required
               />
+            </div>
+            <div>
+              <label htmlFor='status'>Job Status</label>
+              <select name='status' value={employeeData.status} onChange={handleChange} required>
+                {joBStatusOptions.map((status)=>(
+                  <option key={status.value} value={status.value}>
+                    {status.label}
+                  </option>
+                ))}
+              </select>
             </div>
             <div>
               <label htmlFor='department'>Department</label>
@@ -247,6 +268,15 @@ function AddEmployee({ onSubmit, formData, setActiveTab}){
                 value={employeeData.address}
                 onChange={handleChange}
                 required
+              />
+            </div>
+            <div>
+              <label htmlFor="profilePhoto">Profile Photo</label>
+              <input
+                type="file" 
+                id="profilePhoto"
+                name="profilePhoto"
+                accept="image/*" 
               />
             </div>
           </div>
