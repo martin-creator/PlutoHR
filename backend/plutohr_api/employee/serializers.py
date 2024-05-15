@@ -23,7 +23,7 @@ from .models import Employee
 class EmployeeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employee
-        fields = ['username', 'email', 'role', 'password', 'phone_number', 'address', 'job_title', 'department', 'job_status']
+        fields = ['username', 'email', 'role', 'password', 'phone_number', 'address', 'job_title', 'department', 'job_status','employee_id']
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
@@ -39,6 +39,7 @@ class EmployeeSerializer(serializers.ModelSerializer):
         instance.job_title = validated_data.get('job_title', instance.job_title)
         instance.department = validated_data.get('department', instance.department)
         instance.job_status = validated_data.get('job_status', instance.job_status)
+        instance.employee_id = validated_data.get('employee_id', instance.employee_id)
         instance.save()
         return instance
     
