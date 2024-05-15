@@ -83,7 +83,7 @@ class LeaveManagementView(APIView):
         
         
         @extend_schema(
-            responses={200: OpenApiResponse(response=OpenApiTypes.ARRAY, description='List of leaves')}
+            responses={200: OpenApiResponse(response=OpenApiTypes.OBJECT, description='List of leaves')}
         )
         def get(self, request):
             leaves = Leave.objects.all()
@@ -259,6 +259,9 @@ class LeaveBalanceView(APIView):
                     serializer.save()
                     return Response(serializer.data)
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            
+
+# Todo: add an api endpoint for Dashboard for employees to view leave balances and request history.
             
 
         
