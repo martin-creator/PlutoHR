@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'employee',
     'manager',
+    'leave_management',
 ]
 
 MIDDLEWARE = [
