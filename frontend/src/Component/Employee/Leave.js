@@ -12,8 +12,8 @@ const Leave = () => {
       </h3>
       <Tabs>
         <TabList>
-          <Tab>Request Leave</Tab>
-          <Tab>Leave Balance</Tab>
+          <Tab>Leave Request</Tab>
+          <Tab>Leave Balance/History</Tab>
         </TabList>
 
         <TabPanel>
@@ -61,46 +61,39 @@ function RequestLeave() {
               />
             </div>
             <div>
-              <label htmlFor='tel'>Phone</label>
+              <label htmlFor='leave'>Leave Type</label>
+              <select name='leave'  required>
+                  <option>Casual Leave</option>
+                  <option>Annual Leave</option>
+                  <option>Maternity Leave</option>
+              </select>
+            </div>
+            <div>
+              <label htmlFor='period'>Leave Period</label>
               <input
-                type='tel'
-                name='tel'
+                type='date'
+                name='period'
                 required
               />
             </div>
             <div>
-              <label htmlFor='position'>Position</label>
+              <label htmlFor='days'>Days requested</label>
               <input
-                type='text'
-                name='position'
+                type='number'
+                name='days'
                 required
               />
             </div>
             <div>
-              <label htmlFor='department'>Department</label>
-              <select name='department' required>
-                  <option >Software</option>
-                  <option >Accounts</option>
-                  <option >Human Resources</option>
-              </select>
-            </div>
-            <div>
-              <label htmlFor='gender'>Gender</label>
-              <select name='gender'  required>
-                  <option>Male</option>
-                  <option>Female</option>
-              </select>
-            </div>
-            <div>
-              <label htmlFor='address'>Address</label>
+              <label htmlFor='reason'>Reason for Leave</label>
               <input
                 type='text'
-                name='address'
+                name='reason'
                 required
               />
             </div>
           </div>
-          <input type='submit' />
+          <input type='submit' className='leave-button' />
         </form>
     </div>
   )
@@ -110,8 +103,46 @@ function RequestLeave() {
 
 function LeaveBalance() { 
   return (
-    <div className='leave-display'>
-      <h4>Leave Balance</h4>      
+    <div className='leave-balance-container'>
+      <div className='leave-balance'>
+       <h4>Leave Balance</h4> 
+       <details title='Click the arrow to open'>
+        <summary>Annual Leave</summary>
+        <p>Available: 21 days</p>
+        <p>Taken: 0 day</p>
+        </details> 
+        <details title='Click the arrow to open'>
+          <summary>Sick Leave</summary>
+          <p>Available: 10 days</p>
+          <p>Taken: 0 day</p>
+        </details> 
+        <details title='Click the arrow to open'>
+          <summary>Maternity Leave</summary>
+          <p>Available: 30 days</p>
+          <p>Taken: 0 day</p>
+        </details> 
+      </div> 
+      <div className='leave-history'>
+       <h4>Leave History</h4>  
+       <table>
+          <thead>
+            <tr>
+              <th>Leave Period</th>
+              <th>Leave Type</th>
+              <th>Days Taken</th>
+              <th>Reason</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr> 
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+          </tbody>
+        </table>
+      </div>    
     </div>
   )
 }

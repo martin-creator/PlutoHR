@@ -204,6 +204,17 @@ body{
   width: 100px;
   height: 30px;
   border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.login-button:hover{
+  background-color: grey;
+  color: #fff;
+}
+
+.remember{
+  margin-right: 10px;
 }
 
 .logout{
@@ -250,7 +261,8 @@ body{
 .department,
 .leave,
 .attendance,
-.report{
+.report,
+.profile{
   width: 100%;
 }
 
@@ -290,6 +302,7 @@ body{
 .home-details div{
   margin: 10px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -699,6 +712,86 @@ body{
   background-color: grey;
 }
 
+.leave-button{
+  width: 100px;
+  padding: 10px;
+  background-color: #acaaaa;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+.leave-button:hover{
+  background-color: grey;
+  color: #fff;
+}
+
+.leave-balance-container{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;  
+}
+
+.leave-balance{
+  grid-column: 1/2;
+  box-shadow: 0px 15px 68px -3px rgba(0,0,0,0.1);
+  padding: 20px;
+}
+
+.leave-history{
+  grid-column: 2/3;
+  box-shadow: 0px 15px 68px -3px rgba(0,0,0,0.1);
+  padding: 20px;
+}
+
+.leave-balance h4,
+.leave-history h4{
+  border-bottom: 2px solid grey;
+  padding-bottom: 10px;
+}
+
+.leave-balance details{
+  padding: 10px;
+  cursor: pointer;
+}
+
+.leave-balance details p{
+  padding-top: 10px;
+  padding-left: 10px;
+}
+
+.leave-history table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.leave-history table thead{
+  border-bottom: 1px solid grey;
+}
+
+.leave-history th, td {
+  text-align: left;
+  padding: 5px;
+}
+
+.leave-history tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.profile div{
+  text-align: left;
+  margin-top: 20px;
+  padding: 20px;
+  box-shadow: 0px 15px 68px -3px rgba(0,0,0,0.1);
+}
+
+.profile div img,
+.profile div p{
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
 
 /* Responsiveness */
 
@@ -743,6 +836,21 @@ body{
   display: grid;
   grid-template-columns: repeat(3,1fr);
 }
+
+.leave-balance-container{
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.leave-balance{
+  grid-column: 1/2;
+  grid-row: 1/2;
+}
+
+.leave-history{
+  grid-column: 1/2;
+  grid-row: 2/3;
+}
 }
 
 @media screen and (max-width:668px) {
@@ -750,6 +858,27 @@ body{
     width: 100%;
     display: grid;
     grid-template-columns: repeat(2,1fr);
+  }
+
+  .home-details{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 10px;
+  }
+  
+  .home-details div{
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .home-details .item1,
+  .home-details .item2,
+  .home-details .item3,
+  .home-details .item4{ 
+    grid-column: 1/2; 
   }
 }
 

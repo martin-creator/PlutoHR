@@ -6,7 +6,7 @@ import Leave from "./Leave";
 import SignOut from "../SignOut"
 import TopBar from "../TopBar";
 import Attendance from "./Attendance";
-import Profile from "./Profile";
+import EmployeeProfile from "./EmployeProfile";
 
 const EmployeeDashboard=({ onLogOut })=> {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true); 
@@ -28,7 +28,7 @@ const EmployeeDashboard=({ onLogOut })=> {
             <Route path="/" element={<Home />} />
             <Route path="/leave" element={<Leave />} />
             <Route path="/attendance" element={<Attendance />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile" element={<EmployeeProfile />} />
             <Route
               path="/logout"
               element={<SignOut onLogOut={onLogOut} />}
