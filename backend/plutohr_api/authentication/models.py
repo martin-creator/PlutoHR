@@ -31,5 +31,5 @@ class User(AbstractUser):
     address = models.CharField(max_length=255, blank=True, null=True)
     job_title = models.CharField(max_length=255, blank=True, null=True)
     department = models.CharField(max_length=255, blank=True, null=True, choices=DEPARTMENT_CHOICES)
-    job_status = models.BooleanField(max_length=255, blank=True, null=True, choices=STATUS_CHOICES)
+    job_status = models.CharField(max_length=255, blank=True, null=True, choices=STATUS_CHOICES)
 
