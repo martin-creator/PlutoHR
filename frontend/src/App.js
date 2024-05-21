@@ -5,24 +5,24 @@ import ManagerDashboard from "./Component/Manager/ManagerDashboard";
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userRole, setUserRole] = useState("");
+  const [user, setUser] = useState(null);
 
-  const handleLogin = async (role) => {
-    setUserRole(role);
+  const handleLogin = (user) => {
+    setUser(user);
     setIsLoggedIn(true);
   };
 
   const handleLogOut = () => {
     setIsLoggedIn(false);
-    setUserRole("");
+    setUser(null);
   };
 
   return isLoggedIn ? (
     <>
-      {userRole === "Manager" ? (
-        <ManagerDashboard onLogOut={handleLogOut} />
+      {user.role === "Manager" ? (
+        <ManagerDashboard user={user} onLogOut={handleLogOut} />
       ) : (
-        <EmployeeDashboard onLogOut={handleLogOut} />
+        <EmployeeDashboard user={user} onLogOut={handleLogOut} />
       )}
     </>
   ) : (

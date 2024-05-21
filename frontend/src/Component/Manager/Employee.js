@@ -25,9 +25,9 @@ const Employee = () => {
   const handleAddEmployee = async (newEmployee) => {
     try {
       if (selectedEmployee) {
-        const response = await axios.put(`/api/v1/employee/${selectedEmployee.id}/`, newEmployee);
+        const response = await axios.put(`/api/v1/employee/${selectedEmployee.employee_id}/`, newEmployee);
         const updatedEmployees = employees.map(employee =>
-          employee.id === selectedEmployee.id ? response.data : employee
+          employee.employee_id === selectedEmployee.employee_id ? response.data : employee
         );
         setEmployees(updatedEmployees);
         setSelectedEmployee(null);
@@ -42,10 +42,10 @@ const Employee = () => {
   };
   
 
-  const handleDeleteEmployee = async (id) => {
+  const handleDeleteEmployee = async (employee_id) => {
     try {
-      await axios.delete(`/api/v1/employee/detail/${id}/`);
-      const updatedEmployees = employees.filter((employee) => employee.id !== id);
+      await axios.delete(`/api/v1/employee/detail/${employee_id}/`);
+      const updatedEmployees = employees.filter((employee) => employee.employee_id !== employee_id);
       setEmployees(updatedEmployees);
     } catch (error) {
       console.error('Error deleting employee:', error);
@@ -91,8 +91,8 @@ const Employee = () => {
 export default Employee;
 
 function EmployeeTable({ employees, onDelete, onEdit }) {
-  const handleDelete = (id) => {
-    onDelete(id);
+  const handleDelete = (employee_id) => {
+    onDelete(employee_id);
   };
 
   const handleEdit = (employee) => {
@@ -119,8 +119,8 @@ function EmployeeTable({ employees, onDelete, onEdit }) {
         </thead>
         <tbody>
           {employees.map((employee) => (
-            <tr key={employee.id}>
-              <td>{employee.id}</td>
+            <tr key={employee.employee_id}>
+              <td>{employee.employee_id}</td>
               <td>{employee.username}</td>
               <td><a href={`mailto:${employee.email}`}>{employee.email}</a></td>
               <td>{employee.phone_number}</td>
@@ -143,7 +143,6 @@ function EmployeeTable({ employees, onDelete, onEdit }) {
 
 
 function AddEmployee({ onSubmit, formData, setActiveTab }) {
-  // Options as given
   const departmentOptions = [
     { value: 'IT', label: 'IT' },
     { value: 'Finance', label: 'Finance' },
@@ -164,7 +163,7 @@ function AddEmployee({ onSubmit, formData, setActiveTab }) {
   ];
 
   const [employeeData, setEmployeeData] = useState({
-    id: '',
+    employee_id: '',
     username: '',
     email: '',
     phone_number: '',
@@ -190,7 +189,7 @@ function AddEmployee({ onSubmit, formData, setActiveTab }) {
     event.preventDefault();
     onSubmit(employeeData);
     setEmployeeData({
-      id: '',
+      employee_id: '',
       username: '',
       email: '',
       phone_number: '',
@@ -210,10 +209,10 @@ function AddEmployee({ onSubmit, formData, setActiveTab }) {
       <hr />
       <div className='add-employee-input-container'>
         <div>
-          <label htmlFor='id'>EmployeeID</label>
+          <label htmlFor='employee_id'>EmployeeID</label>
           <input
             type='number'
-            name='id'
+            name='employee_id'
             value={employeeData.id}
             onChange={handleChange}
             required

@@ -14,7 +14,7 @@ function Login({ onLogin }) {
       const user = users.find(user => user.email === email && user.username === username);
       if (user) {
         console.log(user.role)
-        onLogin(user.role);
+        onLogin(user);
       } else {
         setError('Invalid Email or password');
       }
