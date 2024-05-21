@@ -99,7 +99,7 @@ class UserLoginView(APIView):
 
     @extend_schema(
         parameters=[
-            OpenApiParameter(name='username', type=str, location=OpenApiParameter.QUERY, required=True),
+            OpenApiParameter(name='email', type=str, location=OpenApiParameter.QUERY, required=True),
             OpenApiParameter(name='password', type=str, location=OpenApiParameter.QUERY, required=True),
         ],
         examples=[
@@ -108,7 +108,7 @@ class UserLoginView(APIView):
                 summary='User Login',
                 description='Login a user',
                 value={
-                    "username": "username",
+                    "email": "email",
                     "password": "password"
                 }
             )
@@ -121,17 +121,17 @@ class UserLoginView(APIView):
     def post(self, request, *args, **kwargs):
 
         serializer = UserLoginSerializer(data=request.data)
-        username = request.data.get('username')
+        email = request.data.get('email')
         password = request.data.get('password')
 
-        user = authenticate(request, username=username, password=password)
+        user = authenticate(request, email=email, password=password)
         if user is not None:
             login(request, user)
             token, created = Token.objects.get_or_create(user=user)
             if created:
                 token.delete()  # Delete the token if it was already created
                 token = Token.objects.create(user=user)
-            return Response({'token': token.key, 'username': user.username, 'role': user.role})
+            return Response({'token': token.key, 'username': user.username, 'role': user.role, 'id': user.id, 'email':email })
         else:
             return Response({'message': 'Invalid username or password'}, status=status.HTTP_401_UNAUTHORIZED)
 
