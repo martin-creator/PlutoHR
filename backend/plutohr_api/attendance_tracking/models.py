@@ -8,6 +8,7 @@ class Attendance(models.Model):
     date = models.DateField()
     time_in = models.TimeField()
     time_out = models.TimeField()
+    hours_worked = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
     def __str__(self):
         return self.employee.username + ' ' + str(self.date)
     
