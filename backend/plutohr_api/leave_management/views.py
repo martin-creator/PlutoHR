@@ -262,6 +262,34 @@ class LeaveBalanceView(APIView):
             
 
 # Todo: add an api endpoint for Dashboard for employees to view leave balances and request history.
+
+
+class LeaveBalanceHistoryView(APIView):
+            
+            """
+            API endpoint that allows leaves balance and request history to be viewed.
+    
+            The `get` function retrieves the leave balance and request history.
+    
+            Parameters:
+            leave_balance: int
+    
+            Returns:
+            JSON: The leave data if the leave balance is updated successfully.
+    
+            """
+    
+            @extend_schema(
+                responses={200: OpenApiResponse(response=OpenApiTypes.OBJECT, description='Leave data')}
+            )
+    
+            def get(self, request, pk):
+                leave = Leave.objects.get(pk=pk)
+                serializer = LeaveBalanceSerializer(leave)
+                return Response(serializer.data)
+            
+
+
             
 
         
