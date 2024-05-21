@@ -1,7 +1,22 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaHome } from 'react-icons/fa'
+import axios from 'axios'
 
 const Home = () => {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    axios.get('/api/v1/employee/list')
+      .then(response => {
+        setUsers(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, []);
+
+  let usersCount = users.length
+
   return (
     <div className='home'>
       <h3 className='home-heading'>
@@ -10,7 +25,7 @@ const Home = () => {
       </h3>
       <div className='home-details'>
         <div className='item1'>
-          <div>20</div>
+          <div>{usersCount}</div>
           <div>Number of employees</div>
         </div>
         <div className='item2'>
