@@ -47,6 +47,7 @@ class EmployeeRegistrationView(APIView):
                 OpenApiParameter(name='job_title', type=str, location=OpenApiParameter.QUERY, required=False),
                 OpenApiParameter(name='department', type=str, location=OpenApiParameter.QUERY, required=False),
                 OpenApiParameter(name='job_status', type=str, location=OpenApiParameter.QUERY, required=False),
+                OpenApiParameter(name='employee_id', type=str, location=OpenApiParameter.QUERY, required=False),
     
             ],
             examples=[
@@ -63,7 +64,8 @@ class EmployeeRegistrationView(APIView):
                         "address": "address",
                         "job_title": "job_title",
                         "department": "department",
-                        "job_status": "job_status"
+                        "job_status": "job_status",
+                        "employee_id": "employee_id"
                     }
                 )
             ],
@@ -182,7 +184,8 @@ class EmployeeDetailView(APIView):
             OpenApiParameter(name='address', type=str, location=OpenApiParameter.QUERY, required=False),
             OpenApiParameter(name='job_title', type=str, location=OpenApiParameter.QUERY, required=False),
             OpenApiParameter(name='department', type=str, location=OpenApiParameter.QUERY, required=False),
-            OpenApiParameter(name='job_status', type=str, location=OpenApiParameter.QUERY, required=False)
+            OpenApiParameter(name='job_status', type=str, location=OpenApiParameter.QUERY, required=False),
+            OpenApiParameter(name='employee_id', type=str, location=OpenApiParameter.QUERY, required=False),
         ],
         responses={200: OpenApiResponse(response=OpenApiTypes.OBJECT, description='Employee data')}
     )

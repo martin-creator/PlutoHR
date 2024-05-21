@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'employee',
     'manager',
     'corsheaders',
+    'leave_management',
 ]
 
 MIDDLEWARE = [
