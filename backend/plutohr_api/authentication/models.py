@@ -32,4 +32,9 @@ class User(AbstractUser):
     job_title = models.CharField(max_length=255, blank=True, null=True)
     department = models.CharField(max_length=255, blank=True, null=True, choices=DEPARTMENT_CHOICES)
     job_status = models.BooleanField(max_length=255, blank=True, null=True, choices=STATUS_CHOICES)
+    photo = models.ImageField(upload_to='profile_pics', blank=True, null=True) 
+
+    # profile_pics is the directory where the images will be stored. The images will be stored in the media directory of the project.
+    # Will profile pics be created automatically?
+    
 
