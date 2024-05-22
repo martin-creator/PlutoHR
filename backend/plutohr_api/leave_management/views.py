@@ -34,7 +34,7 @@ class LeaveManagementView(APIView):
         The `post` function creates a new leave if the data is valid.
         
         Parameters:
-        employee: str
+        employee_pK: int
         start_date: str
         end_date: str
         reason: str
