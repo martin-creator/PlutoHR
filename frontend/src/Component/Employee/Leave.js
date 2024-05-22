@@ -47,19 +47,15 @@ function RequestLeave() {
       ...prevData,
       [name]: value,
     }));
-  };
+  };  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
     setSuccess(null);
-
+  
     try {
-      await axios.post('/api/v1/employee/leave', leaveRequestData, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      await axios.post('http://localhost:8000/api/v1/employee/leave/', leaveRequestData);
       setSuccess('Leave request submitted successfully!');
       setLeaveRequestData({
         employee: '',
@@ -72,6 +68,7 @@ function RequestLeave() {
       console.error('Error submitting leave request:', error);
     }
   };
+  
 
   return (
     <div className='leave-display'>

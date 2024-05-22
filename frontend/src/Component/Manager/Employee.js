@@ -15,7 +15,7 @@ const Employee = () => {
 
   const fetchEmployees = async () => {
     try {
-      const response = await axios.get('/api/v1/employee/list');
+      const response = await axios.get('http://localhost:8000/api/v1/employee/list/');
       setEmployees(response.data);
     } catch (error) {
       console.error('Error fetching employees:', error);
