@@ -15,33 +15,24 @@ const Employee = () => {
 
   const fetchEmployees = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/v1/employee/list');
+      const response = await axios.get('http://localhost:8000/api/v1/employee/list/');
       setEmployees(response.data);
     } catch (error) {
       console.error('Error fetching employees:', error);
-      if (error.response) {
-        console.error('Response data:', error.response.data);
-        console.error('Response status:', error.response.status);
-        console.error('Response headers:', error.response.headers);
-      } else if (error.request) {
-        console.error('Request data:', error.request);
-      } else {
-        console.error('Error message:', error.message);
-      }
     }
   };
 
-  const handleAddEmployee = async (newEmployee) => {
+  const handleAddEmployee = async (employeeData) => {
     try {
       if (selectedEmployee) {
-        const response = await axios.put(`http://localhost:8000/api/v1/employee/${selectedEmployee.id}/`, newEmployee);
+        const response = await axios.put(`http://localhost:8000/api/v1/employee/detail/${selectedEmployee.id}/`, employeeData);
         const updatedEmployees = employees.map(employee =>
           employee.id === selectedEmployee.id ? response.data : employee
         );
         setEmployees(updatedEmployees);
         setSelectedEmployee(null);
       } else {
-        const response = await axios.post('http://localhost:8000/api/v1/employee/register/', newEmployee);
+        const response = await axios.post('http://localhost:8000/api/v1/employee/register/', employeeData);
         setEmployees([...employees, response.data]);
       }
       setActiveTab(0);
@@ -49,11 +40,12 @@ const Employee = () => {
       console.error('Error adding/updating employee:', error);
     }
   };
+  
 
-  const handleDeleteEmployee = async (id) => {
+  const handleDeleteEmployee = async (employee_id) => {
     try {
-      await axios.delete(`http://localhost:8000/api/v1/employee/${id}/`);
-      const updatedEmployees = employees.filter((employee) => employee.id !== id);
+      await axios.delete(`/api/v1/employee/detail/${employee_id}/`);
+      const updatedEmployees = employees.filter((employee) => employee.employee_id !== employee_id);
       setEmployees(updatedEmployees);
     } catch (error) {
       console.error('Error deleting employee:', error);
@@ -99,13 +91,14 @@ const Employee = () => {
 export default Employee;
 
 function EmployeeTable({ employees, onDelete, onEdit }) {
-  const handleDelete = (id) => {
-    onDelete(id);
-  }
+  const handleDelete = (employee_id) => {
+    onDelete(employee_id);
+  };
 
   const handleEdit = (employee) => {
     onEdit(employee);
-  }
+  };
+
   return (
     <div className='employee-display'>
       <h4><span><FaList /></span> Employee List</h4>
@@ -125,29 +118,27 @@ function EmployeeTable({ employees, onDelete, onEdit }) {
           </tr>
         </thead>
         <tbody>
-          {
-            employees.map((employee) => (
-              <tr key={employee.id}>
-                <td>{employee.id}</td>
-                <td>{employee.username}</td>
-                <td><a href={`mailto: ${employee.email}`}>{employee.email}</a></td>
-                <td>{employee.phone_number}</td>
-                <td>{employee.job_title}</td>
-                <td>{employee.job_status}</td>
-                <td>{employee.department}</td>
-                <td>{employee.role}</td>
-                <td>{employee.address}</td>
-                <td className='employee-action-buttons'>
-                  <button className='employee-edit-button' onClick={() => handleEdit(employee)}><FaEdit /></button>
-                  <button className='employee-delete-button' onClick={() => handleDelete(employee.id)}><FaTrash /> </button>
-                </td>
-              </tr>
-            ))
-          }
+          {employees.map((employee) => (
+            <tr key={employee.employee_id}>
+              <td>{employee.employee_id}</td>
+              <td>{employee.username}</td>
+              <td><a href={`mailto:${employee.email}`}>{employee.email}</a></td>
+              <td>{employee.phone_number}</td>
+              <td>{employee.job_title}</td>
+              <td>{employee.job_status}</td>
+              <td>{employee.department}</td>
+              <td>{employee.role}</td>
+              <td>{employee.address}</td>
+              <td className='employee-action-buttons'>
+                <button className='employee-edit-button' onClick={() => handleEdit(employee)}><FaEdit /></button>
+                <button className='employee-delete-button' onClick={() => handleDelete(employee.employee_id)}><FaTrash /></button>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
-  )
+  );
 }
 
 function AddEmployee({ onSubmit, formData, setActiveTab }) {
@@ -171,13 +162,13 @@ function AddEmployee({ onSubmit, formData, setActiveTab }) {
   ];
 
   const [employeeData, setEmployeeData] = useState({
-    id: '',
+    employee_id: '',
     username: '',
     email: '',
     phone_number: '',
     job_title: '',
-    job_status: jobStatusOptions[0].value, 
-    department: departmentOptions[0].value, 
+    job_status: jobStatusOptions[0].value,
+    department: departmentOptions[0].value,
     role: roleOptions[0].value,
     address: '',
     password: ''
@@ -197,19 +188,19 @@ function AddEmployee({ onSubmit, formData, setActiveTab }) {
     event.preventDefault();
     onSubmit(employeeData);
     setEmployeeData({
-      id: '',
+      employee_id: '',
       username: '',
       email: '',
       phone_number: '',
       job_title: '',
-      job_status: jobStatusOptions[0].value, 
-      department: departmentOptions[0].value, 
-      role: roleOptions[0].value, 
+      job_status: jobStatusOptions[0].value,
+      department: departmentOptions[0].value,
+      role: roleOptions[0].value,
       address: '',
       password: ''
     });
     setActiveTab(0);
-  }
+  };
 
   return (
     <form className='add-employee-form' onSubmit={handleSubmit}>
@@ -217,10 +208,10 @@ function AddEmployee({ onSubmit, formData, setActiveTab }) {
       <hr />
       <div className='add-employee-input-container'>
         <div>
-          <label htmlFor='id'>EmployeeID</label>
+          <label htmlFor='employee_id'>EmployeeID</label>
           <input
             type='number'
-            name='id'
+            name='employee_id'
             value={employeeData.employee_id}
             onChange={handleChange}
             required

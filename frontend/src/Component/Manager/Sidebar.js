@@ -75,7 +75,7 @@ const Sidebar = ( { toggleSidebar, isSidebarOpen }) => {
       </div>
       <hr />
       <div className='sign-out-cont'>
-        <Link to='signout' className='sign-out'><span><FaSignOutAlt /></span> SignOut </Link>
+        <Link to='logout' className='sign-out'><span><FaSignOutAlt /></span> LogOut </Link>
       </div>
     </div>
   );

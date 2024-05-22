@@ -41,28 +41,19 @@ function LeaveRequest() {
       <table>
         <thead>
           <tr>
-            <th>Date</th>
             <th>Employee Name</th>
-            <th>Email</th>
-            <th>Position</th>
-            <th>Department</th>
-            <th>Leave Balance</th>
-            <th>Days Requested</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Reason</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
            <tr> 
-              <td>001</td>
               <td>Steph</td>
-              <td>
-                {/* <a href={`mailto: steph@plutohr.com`}>steph@plutohr.com</a> */}
-                Testing
-                </td>
               <td>Testing</td>
               <td>Testing</td>
               <td>Testing</td>
-              <td></td>
               <td className='leave-action-button'>
                 <button className='leave-accept'>Accept</button>
                 <button className='leave-reject'>Reject</button>
