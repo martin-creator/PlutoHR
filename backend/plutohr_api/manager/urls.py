@@ -1,6 +1,7 @@
 from django.urls import path, include
 from manager.views import ManagerRegistrationView, ManagerListView, ManagerDetailView
 from leave_management.views import LeaveManagementView, LeaveDetailView, LeaveBalanceView, LeaveApprovalView
+from attendance_tracking.views import AttendanceRecordView
 
 urlpatterns = [
     path('register/', ManagerRegistrationView.as_view(), name='manager-registration'),
@@ -12,5 +13,7 @@ urlpatterns = [
     path('leave/<int:pk>/', LeaveDetailView.as_view(), name='leave-detail'),
     path('leave/balance/<int:pk>/', LeaveBalanceView.as_view(), name='leave-balance'),
     path('leave/approval/<int:pk>/', LeaveApprovalView.as_view(), name='leave-approval'),
+
+    path('attendance/', AttendanceRecordView.as_view(), name='attendance-record'),
 
 ]
