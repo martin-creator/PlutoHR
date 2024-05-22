@@ -24,7 +24,7 @@ class Leave(models.Model):
     start_date = models.DateField()
     end_date = models.DateField()
     reason = models.TextField()
-    status = models.CharField(max_length=455, choices=LEAVE_STATUS, default='Not Requested', blank=True)
+    status = models.CharField(max_length=455, choices=LEAVE_STATUS, default='Requested', blank=True)
     comments = models.TextField(blank=True)
     leave_balance = models.IntegerField(default=10, blank=True)
 
