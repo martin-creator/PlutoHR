@@ -1,47 +1,31 @@
-// App.js
 import React, { useState } from "react";
-import Sidebar from "./Component/Sidebar";
-import { Routes, Route, BrowserRouter } from "react-router-dom";
-import Home from "./Component/Home";
-import Leave from "./Component/Leave";
-import SignOut from "./Component/SignOut";
-import Report from "./Component/Report";
 import Login from "./Component/Login";
-import TopBar from "./Component/TopBar";
-import Department from "./Component/Department";
-import Employee from "./Component/Employee";
+import EmployeeDashboard from "./Component/Employee/EmployeeDashboard";
+import ManagerDashboard from "./Component/Manager/ManagerDashboard";
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState(null);
 
-  // When user signs out
-  const handleSignOut = () => {
+  const handleLogin = (user) => {
+    setUser(user);
+    setIsLoggedIn(true);
+  };
+
+  const handleLogOut = () => {
     setIsLoggedIn(false);
+    setUser(null);
   };
 
   return isLoggedIn ? (
-    <BrowserRouter>
-      <div className="container">
-        <div className="sidebar">
-          <Sidebar />
-        </div>
-        <div className="content">
-          <TopBar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="employee" element={<Employee />} />
-            <Route path="/department" element={<Department />} />
-            <Route path="/leave" element={<Leave />} />
-            <Route path="/report" element={<Report />} />
-            <Route
-              path="/signout"
-              element={<SignOut onSignOut={handleSignOut} />}
-            />
-          </Routes>
-        </div>
-      </div>
-    </BrowserRouter>
+    <>
+      {user.role === "Manager" ? (
+        <ManagerDashboard user={user} onLogOut={handleLogOut} />
+      ) : (
+        <EmployeeDashboard user={user} onLogOut={handleLogOut} />
+      )}
+    </>
   ) : (
-    <Login onLogin={() => setIsLoggedIn(true)} />
+    <Login onLogin={handleLogin} />
   );
 }

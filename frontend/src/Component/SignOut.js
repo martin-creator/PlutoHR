@@ -1,32 +1,29 @@
-import React from 'react'
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function Navigation() {
+function SignOut({ onLogOut }) {
   const navigate = useNavigate();
 
   const handleNoSignOut = () => {
     navigate('/'); 
   };
 
-  return (
-    <div>
-      <button className='signout-button' onClick={handleNoSignOut}>No</button>
-    </div>
-  );
-}
+  const handleYesSignOut = () => {
+    onLogOut(); 
+    navigate('/login'); 
+  };
 
-const SignOut = ({onSignOut, onNoSignOut}) => {
   return (
     <div className='logout'>
       <div className='signout-container'>
         <p>Do you want to log out?</p>
         <div className='signout-btn-cont'>
-          <button className='signout-button' onClick={onSignOut}>Yes</button>
-          <Navigation onNoSignOut={onNoSignOut}/>
+          <button className='signout-button' onClick={handleYesSignOut}>Yes</button>
+          <button className='signout-button' onClick={handleNoSignOut}>No</button>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default SignOut
+export default SignOut;

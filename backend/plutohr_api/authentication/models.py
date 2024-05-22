@@ -36,5 +36,5 @@ class User(AbstractUser):
 
     # profile_pics is the directory where the images will be stored. The images will be stored in the media directory of the project.
     # Will profile pics be created automatically?
-    
+   
 

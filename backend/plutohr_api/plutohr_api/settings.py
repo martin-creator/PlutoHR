@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'employee',
     'manager',
+    'corsheaders',
     'leave_management',
     'attendance_tracking'
 ]
@@ -58,7 +59,30 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
+
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  
+]
+
+CORS_ALLOW_METHODS = [
+    'GET',
+    'POST',
+    'PUT',
+    'PATCH',
+    'DELETE',
+    'OPTIONS',
+]
+
+CORS_ALLOW_HEADERS = [
+    'Content-Type',
+    'Authorization',  # If using authentication
+]
+
+# For development purposes, you can also use:
+CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = 'plutohr_api.urls'
 
