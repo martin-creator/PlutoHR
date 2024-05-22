@@ -22,17 +22,17 @@ const Employee = () => {
     }
   };
 
-  const handleAddEmployee = async (newEmployee) => {
+  const handleAddEmployee = async (employeeData) => {
     try {
       if (selectedEmployee) {
-        const response = await axios.put(`/api/v1/employee/${selectedEmployee.employee_id}/`, newEmployee);
+        const response = await axios.put(`http://localhost:8000/api/v1/employee/detail/${selectedEmployee.id}/`, employeeData);
         const updatedEmployees = employees.map(employee =>
-          employee.employee_id === selectedEmployee.employee_id ? response.data : employee
+          employee.id === selectedEmployee.id ? response.data : employee
         );
         setEmployees(updatedEmployees);
         setSelectedEmployee(null);
       } else {
-        const response = await axios.post('/api/v1/employee/register/', newEmployee);
+        const response = await axios.post('http://localhost:8000/api/v1/employee/register/', employeeData);
         setEmployees([...employees, response.data]);
       }
       setActiveTab(0);
@@ -131,7 +131,7 @@ function EmployeeTable({ employees, onDelete, onEdit }) {
               <td>{employee.address}</td>
               <td className='employee-action-buttons'>
                 <button className='employee-edit-button' onClick={() => handleEdit(employee)}><FaEdit /></button>
-                <button className='employee-delete-button' onClick={() => handleDelete(employee.id)}><FaTrash /></button>
+                <button className='employee-delete-button' onClick={() => handleDelete(employee.employee_id)}><FaTrash /></button>
               </td>
             </tr>
           ))}
@@ -140,7 +140,6 @@ function EmployeeTable({ employees, onDelete, onEdit }) {
     </div>
   );
 }
-
 
 function AddEmployee({ onSubmit, formData, setActiveTab }) {
   const departmentOptions = [
@@ -213,7 +212,7 @@ function AddEmployee({ onSubmit, formData, setActiveTab }) {
           <input
             type='number'
             name='employee_id'
-            value={employeeData.id}
+            value={employeeData.employee_id}
             onChange={handleChange}
             required
           />
