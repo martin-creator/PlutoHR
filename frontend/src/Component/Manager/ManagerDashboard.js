@@ -10,7 +10,7 @@ import Department from "./Department";
 import Employee from "./Employee";
 import Attendance from "./Attendance";
 
-const ManagerDashboard=({onLogOut})=> {
+const ManagerDashboard=({onLogOut, user})=> {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true); 
 
   // Toggle sidebar
@@ -26,7 +26,7 @@ const ManagerDashboard=({onLogOut})=> {
         <div className="content">
           <TopBar toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home user={user} />} />
             <Route path="employee" element={<Employee />} />
             <Route path="/department" element={<Department />} />
             <Route path="/leave" element={<Leave />} />

@@ -1,22 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { FaHome } from 'react-icons/fa'
-import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+// import axios from 'axios';
 
-const Home = () => {
-  const [users, setUsers] = useState([]);
+const Home = ({user}) => {
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    axios.get('/api/v1/employee/list')
-      .then(response => {
-        setUsers(response.data);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }, []);
+  const handleOpenProfile = ()=>{
+    navigate('/profile')
+  }
 
-  let usersCount = users.length
-
+  const handleOpenLeaveForm = ()=>{
+    navigate('/leave')
+  }
   return (
     <div className='home'>
       <h3 className='home-heading'>
@@ -24,25 +20,82 @@ const Home = () => {
         Home
       </h3>
       <div className='home-details'>
-        <div className='item1'>
-          <div>{usersCount}</div>
-          <div>Number of employees</div>
+        <div className='home-profile'>
+          <div className='home-profile-desc'>
+            <div>Welcome back, {user.username}</div>
+            <div>I wish you a great day 👍 </div>
+            <button className='open-profile-button' onClick={handleOpenProfile}>View Profile</button>
+          </div>
+          <div className='home-profile-img'>
+            <img src='https://avatars.githubusercontent.com/u/148610430?v=4' alt='Profile' />
+          </div>
         </div>
-        <div className='item2'>
-          <div>10</div>
-          <div>Total hours worked</div>
+        <div className='home-stats'>
+          <div className='home-stat-heading'>
+            <h3>Statistics</h3>
+            <select for="day">
+              <option name="day" id='day' className='day'>Today</option>
+              <option name="day" id='week' className='week'>Today</option>
+            </select>
+          </div>
+          <div className='home-stat-details'>
+            <div className='home-stat-worktime'>
+              <p>Work Time</p>
+              <p>6 Hrs : 40 Mins</p>
+            </div>
+            <div className='home-stat-balance'>
+              <div>
+                <p>Remaining </p>
+                <em>2 Hrs 20 Mins</em>
+              </div>
+              <div>
+                <p>Overtime</p>
+                <em>0 Hrs 00 Mins</em>
+              </div>
+              <div>
+                <p>Break</p> 
+                <em>1 Hrs 00 Mins</em>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className='item3'>
-          <div>10</div>
-          <div>Number of department</div>
-        </div>
-        <div className='item4'>
-          <div>10</div>
-          <div>Growth</div>
+        <div className='attendance-stat'>
+          <div className='attendance-stat-heading'>
+            <h3>Attendance & Leaves</h3>
+            <select>
+              <option id='day' className='day'>Today</option>
+              <option id='week' className='week'>Today</option>
+            </select>
+          </div>
+          <div className='attendance-stat-detail'>
+            <div>
+              <p>9</p>
+              <p>Total Leaves</p>
+            </div>
+            <div>
+              <p>4 </p>
+              <em>Leaves Taken</em>
+            </div>
+            <div>
+              <p>0</p>
+              <em>Pending Approval</em>
+            </div>
+            <div>
+              <p>200</p> 
+              <em>Worked Days</em>
+            </div>
+            <div>
+              <p>1000</p> 
+              <em>Worked Hours</em>
+            </div>
+          </div>
+          <div>
+            <button className='home-leave-apply-button' onClick={handleOpenLeaveForm}>Apply for Leave</button>
+          </div>
         </div>
       </div>
     </div>
   )
 }
 
-export default Home
+export default Home;
