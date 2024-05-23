@@ -13,13 +13,13 @@ function Login({ onLogin }) {
       const users = response.data;
       const user = users.find(user => user.email === email && user.username === username);
       if (user) {
-        console.log(user.role)
         onLogin(user);
       } else {
-        setError('Invalid Email or password');
+        setError('Invalid Email or Password');
       }
     } catch (error) {
-      setError('Error fetching user data');
+      console.error('Error fetching user data:', error);
+      setError('Error fetching user data. Please try again later.');
     }
   };
 
