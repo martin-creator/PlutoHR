@@ -8,6 +8,10 @@ const Home = ({user}) => {
   const handleOpenProfile = ()=>{
     navigate('/profile')
   }
+
+  const handleOpenLeaveForm = ()=>{
+    navigate('/leave')
+  }
   return (
     <div className='home'>
       <h3 className='home-heading'>
@@ -29,7 +33,8 @@ const Home = ({user}) => {
           <div className='home-stat-heading'>
             <h3>Statistics</h3>
             <select for="day">
-              <option id='day' className='day'>Today</option>
+              <option name="day" id='day' className='day'>Today</option>
+              <option name="day" id='week' className='week'>Today</option>
             </select>
           </div>
           <div className='home-stat-details'>
@@ -53,9 +58,39 @@ const Home = ({user}) => {
             </div>
           </div>
         </div>
-        <div className='item3'>
-          <div>10</div>
-          <div>Growth</div>
+        <div className='attendance-stat'>
+          <div className='attendance-stat-heading'>
+            <h3>Attendance & Leaves</h3>
+            <select>
+              <option id='day' className='day'>Today</option>
+              <option id='week' className='week'>Today</option>
+            </select>
+          </div>
+          <div className='attendance-stat-detail'>
+            <div>
+              <p>9</p>
+              <p>Total Leaves</p>
+            </div>
+            <div>
+              <p>4 </p>
+              <em>Leaves Taken</em>
+            </div>
+            <div>
+              <p>0</p>
+              <em>Pending Approval</em>
+            </div>
+            <div>
+              <p>200</p> 
+              <em>Worked Days</em>
+            </div>
+            <div>
+              <p>1000</p> 
+              <em>Worked Hours</em>
+            </div>
+          </div>
+          <div>
+            <button className='home-leave-apply-button' onClick={handleOpenLeaveForm}>Apply for Leave</button>
+          </div>
         </div>
       </div>
     </div>
