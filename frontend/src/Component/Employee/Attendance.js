@@ -36,7 +36,7 @@ const Attendance = ({ user, logoutTime }) => {
 
   const sendAttendanceData = async (attendanceEntry) => {
     try {
-      const response = await axios.get('http://localhost:8000/api/v1/employee/attendance/', attendanceEntry);
+      const response = await axios.post('http://localhost:8000/api/v1/employee/attendance/', attendanceEntry);
       console.log('Attendance data sent successfully:', response.data);
     } catch (error) {
       console.error('Error sending attendance data:', error.response ? error.response.data : error.message);

@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaPaperPlane } from 'react-icons/fa'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import axios from 'axios';
 
 const Leave = () => {
   return (
@@ -34,35 +35,54 @@ const Leave = () => {
 export default Leave
 
 //Pending Leave Request component
-function LeaveRequest() { 
+function LeaveRequest() {
+  const [leaveRequests, setLeaveRequests] = useState([]);
+
+  useEffect(() => {
+    const fetchLeaveRequests = async () => {
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/api/v1/employee/leave/');
+        setLeaveRequests(response.data);
+      } catch (error) {
+        console.error('Error fetching leave requests:', error);
+      }
+    };
+
+    fetchLeaveRequests();
+  }, []);
+
   return (
     <div className='leave-display'>
       <h4>Pending Leave Request</h4>
       <table>
         <thead>
           <tr>
-            <th>Employee Name</th>
+            <th>EmployeeID</th>
             <th>Start Date</th>
             <th>End Date</th>
             <th>Reason</th>
+            <th>Leave Balance</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
-           <tr> 
-              <td>Steph</td>
-              <td>Testing</td>
-              <td>Testing</td>
-              <td>Testing</td>
+          {leaveRequests.map((request, index) => (
+            <tr key={index}>
+              <td>{request.employee_id}</td>
+              <td>{request.start_date}</td>
+              <td>{request.end_date}</td>
+              <td>{request.reason}</td>
+              <td>{request.leave_balance}</td>
               <td className='leave-action-button'>
                 <button className='leave-accept'>Accept</button>
                 <button className='leave-reject'>Reject</button>
               </td>
             </tr>
-          </tbody>
+          ))}
+        </tbody>
       </table>
     </div>
-  )
+  );
 }
 
 //Accepted leave component

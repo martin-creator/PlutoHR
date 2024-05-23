@@ -65,7 +65,7 @@ function RequestLeave() {
         status: 'Requested',
         comments: leaveRequestData.comments || '',
       });
-      console.log('Response data:', response.data); // Debug the response data
+      console.log('Response data:', response.data); 
       setSuccess('Leave request submitted successfully!');
       setLeaveRequestData({
         employee: leaveRequestData.employee,
