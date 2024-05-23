@@ -25,7 +25,7 @@ const EmployeeDashboard=({user, onLogOut })=> {
         <div className="content">
           <TopBar toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home user={user} />} />
             <Route path="/leave" element={<Leave />} />
             <Route path="/attendance" element={<Attendance />} />
             <Route path="/profile" element={<EmployeeProfile user={user} />} />

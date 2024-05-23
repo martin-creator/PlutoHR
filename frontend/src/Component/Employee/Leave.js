@@ -37,7 +37,9 @@ function RequestLeave() {
     start_date: '',
     end_date: '',
     reason: '',
+    comments: '',
   });
+
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
 
@@ -47,28 +49,45 @@ function RequestLeave() {
       ...prevData,
       [name]: value,
     }));
-  };  
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
     setSuccess(null);
-  
+
     try {
-      await axios.post('http://localhost:8000/api/v1/employee/leave/', leaveRequestData);
+      const response = await axios.post('http://localhost:8000/api/v1/employee/leave/', {
+        employee: leaveRequestData.employee,
+        start_date: leaveRequestData.start_date,
+        end_date: leaveRequestData.end_date,
+        reason: leaveRequestData.reason,
+        status: 'Requested',
+        comments: leaveRequestData.comments || '',
+      });
+      console.log('Response data:', response.data); // Debug the response data
       setSuccess('Leave request submitted successfully!');
       setLeaveRequestData({
-        employee: '',
+        employee: leaveRequestData.employee,
         start_date: '',
         end_date: '',
         reason: '',
+        comments: '',
       });
     } catch (error) {
-      setError('Error submitting leave request');
-      console.error('Error submitting leave request:', error);
+      if (error.response) {
+        console.error('Server responded with status:', error.response.status);
+        console.error('Response data:', error.response.data);
+        setError(`Error submitting leave request: ${error.response.data.message || error.message}`);
+      } else if (error.request) {
+        console.error('No response received:', error.request);
+        setError('Error submitting leave request: No response from server.');
+      } else {
+        console.error('Error setting up the request:', error.message);
+        setError(`Error submitting leave request: ${error.message}`);
+      }
     }
   };
-  
 
   return (
     <div className='leave-display'>
@@ -76,7 +95,7 @@ function RequestLeave() {
       <form className='leave-request-form' onSubmit={handleSubmit}>
         <div className='add-employee-input-container'>
           <div>
-            <label htmlFor='employee'>Employee Name</label>
+            <label htmlFor='employee'>Employee ID</label>
             <input
               type='text'
               name='employee'
@@ -113,6 +132,15 @@ function RequestLeave() {
               value={leaveRequestData.reason}
               onChange={handleChange}
               required
+            />
+          </div>
+          <div>
+            <label htmlFor='comments'>Comments</label>
+            <input
+              type='text'
+              name='comments'
+              value={leaveRequestData.comments}
+              onChange={handleChange}
             />
           </div>
         </div>
