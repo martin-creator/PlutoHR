@@ -1,9 +1,8 @@
 import React from 'react'
 import { FaHome } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
-// import axios from 'axios';
 
-const Home = ({user}) => {
+const Home = ({user, leaveRequests}) => {
   const navigate = useNavigate();
 
   const handleOpenProfile = ()=>{
@@ -13,6 +12,7 @@ const Home = ({user}) => {
   const handleOpenLeaveForm = ()=>{
     navigate('/leave')
   }
+
   return (
     <div className='home'>
       <h3 className='home-heading'>
@@ -33,9 +33,9 @@ const Home = ({user}) => {
         <div className='home-stats'>
           <div className='home-stat-heading'>
             <h3>Statistics</h3>
-            <select for="day">
+            <select htmlFor="day">
               <option name="day" id='day' className='day'>Today</option>
-              <option name="day" id='week' className='week'>Today</option>
+              <option name="day" id='week' className='week'>Week</option>
             </select>
           </div>
           <div className='home-stat-details'>
@@ -62,14 +62,14 @@ const Home = ({user}) => {
         <div className='attendance-stat'>
           <div className='attendance-stat-heading'>
             <h3>Attendance & Leaves</h3>
-            <select>
-              <option id='day' className='day'>Today</option>
-              <option id='week' className='week'>Today</option>
+            <select htmlFor="day">
+              <option name="day" id='day' className='day'>Today</option>
+              <option name="day" id='week' className='week'>Week</option>
             </select>
           </div>
           <div className='attendance-stat-detail'>
             <div>
-              <p>9</p>
+              <p>{leaveRequests.length}</p>
               <p>Total Leaves</p>
             </div>
             <div>

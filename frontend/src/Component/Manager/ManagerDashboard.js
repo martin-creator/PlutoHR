@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import Home from "./Home";
@@ -9,9 +9,24 @@ import TopBar from "../TopBar";
 import Department from "./Department";
 import Employee from "./Employee";
 import Attendance from "./Attendance";
+import axios from 'axios';
 
 const ManagerDashboard=({onLogOut, user})=> {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true); 
+  const [leaveRequests, setLeaveRequests] = useState([]);
+
+  useEffect(() => {
+    const fetchLeaveRequests = async () => {
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/api/v1/employee/leave/');
+        setLeaveRequests(response.data);
+      } catch (error) {
+        console.error('Error fetching leave requests:', error);
+      }
+    };
+
+    fetchLeaveRequests();
+  }, []);
 
   // Toggle sidebar
   const toggleSidebar = () => {
@@ -26,10 +41,10 @@ const ManagerDashboard=({onLogOut, user})=> {
         <div className="content">
           <TopBar toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
           <Routes>
-            <Route path="/" element={<Home user={user} />} />
+            <Route path="/" element={<Home user={user} leaveRequests={leaveRequests}/>} />
             <Route path="employee" element={<Employee />} />
             <Route path="/department" element={<Department />} />
-            <Route path="/leave" element={<Leave />} />
+            <Route path="/leave" element={<Leave leaveRequests={leaveRequests} />} />
             <Route path="/attendance" element={<Attendance />} />
             <Route path="/report" element={<Report />} />
             <Route

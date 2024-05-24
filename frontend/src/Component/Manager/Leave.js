@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { FaPaperPlane } from 'react-icons/fa'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
-import axios from 'axios';
 
-const Leave = () => {
+const Leave = ({leaveRequests}) => {
+ 
   return (
     <div className='leave'>
       <h3 className='leave-heading'>
@@ -19,7 +19,7 @@ const Leave = () => {
         </TabList>
 
         <TabPanel>
-          <LeaveRequest />
+          <LeaveRequest leaveRequests={leaveRequests}/>
         </TabPanel>
         <TabPanel>
           <AcceptedLeaveRequest />
@@ -35,21 +35,7 @@ const Leave = () => {
 export default Leave
 
 //Pending Leave Request component
-function LeaveRequest() {
-  const [leaveRequests, setLeaveRequests] = useState([]);
-
-  useEffect(() => {
-    const fetchLeaveRequests = async () => {
-      try {
-        const response = await axios.get('http://127.0.0.1:8000/api/v1/employee/leave/');
-        setLeaveRequests(response.data);
-      } catch (error) {
-        console.error('Error fetching leave requests:', error);
-      }
-    };
-
-    fetchLeaveRequests();
-  }, []);
+function LeaveRequest({leaveRequests}) { 
 
   return (
     <div className='leave-display'>
@@ -86,7 +72,6 @@ function LeaveRequest() {
 }
 
 //Accepted leave component
-
 function AcceptedLeaveRequest() { 
   return (
     <div className='leave-display'>

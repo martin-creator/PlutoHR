@@ -118,8 +118,8 @@ function EmployeeTable({ employees, onDelete, onEdit }) {
           </tr>
         </thead>
         <tbody>
-          {employees.map((employee) => (
-            <tr key={employee.employee_id}>
+          {employees.map((employee, index) => (
+            <tr key={index}>
               <td>{employee.employee_id}</td>
               <td>{employee.username}</td>
               <td><a href={`mailto:${employee.email}`}>{employee.email}</a></td>
