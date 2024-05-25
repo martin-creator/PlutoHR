@@ -1,7 +1,7 @@
 from django.urls import path, include
 from employee.views import EmployeeRegistrationView, EmployeeListView, EmployeeDetailView
 from leave_management.views import LeaveManagementView, LeaveDetailView, LeaveBalanceHistoryView,LeaveList
-from attendance_tracking.views import AttendanceRecordView
+from attendance_tracking.views import AttendanceRecordView, AttendanceDetailView
 
 urlpatterns = [
     path('register/', EmployeeRegistrationView.as_view(), name='employee-registration'),
@@ -15,5 +15,7 @@ urlpatterns = [
 
     path('attendance/', AttendanceRecordView.as_view(), name='attendance-record'),
     path('attendance/<int:pk>/', AttendanceRecordView.as_view(), name='attendance-record'),
+    path('attendance/detail/<int:pk>/', AttendanceDetailView.as_view(), name='attendance-detail'),
+    
     # Add other URLs here
 ]
