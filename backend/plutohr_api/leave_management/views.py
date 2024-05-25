@@ -221,6 +221,19 @@ class LeaveApprovalView(APIView):
 
 class LeaveList(APIView):
       # Return all the leave requests for a particular employee
+            """
+            API endpoint that allows leaves to be listed.
+
+            The `get` function retrieves the leave data.
+
+            Parameters:
+            employee_pK: int
+
+            Returns:
+            JSON: The leave data.
+
+    
+            """
 
             @extend_schema(
                 parameters=[
