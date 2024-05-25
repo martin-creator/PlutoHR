@@ -4,6 +4,7 @@ from employee.models import Employee
 # Create your models here.
 
 class Attendance(models.Model):
+    # show employee name
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
     date = models.DateField()
     time_in = models.TimeField()

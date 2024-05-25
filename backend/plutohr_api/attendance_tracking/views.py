@@ -70,49 +70,113 @@ class AttendanceRecordView(APIView):
 
 
 
-@extend_schema(
-    parameters=[
-        OpenApiParameter(name='employee', type=OpenApiTypes.INT, location=OpenApiParameter.QUERY, required=True),
-        OpenApiParameter(name='date', type=OpenApiTypes.DATE, location=OpenApiParameter.QUERY, required=True),
-        OpenApiParameter(name='time_in', type=OpenApiTypes.TIME, location=OpenApiParameter.QUERY, required=True),
-        OpenApiParameter(name='time_out', type=OpenApiTypes.TIME, location=OpenApiParameter.QUERY, required=False),
-        
-    ],
+    @extend_schema(
+        parameters=[
+            OpenApiParameter(name='employee', type=OpenApiTypes.INT, location=OpenApiParameter.QUERY, required=True),
+            OpenApiParameter(name='date', type=OpenApiTypes.DATE, location=OpenApiParameter.QUERY, required=True),
+            OpenApiParameter(name='time_in', type=OpenApiTypes.TIME, location=OpenApiParameter.QUERY, required=True),
+            OpenApiParameter(name='time_out', type=OpenApiTypes.TIME, location=OpenApiParameter.QUERY, required=False),
+            
+        ],
 
-    examples=[
-        OpenApiExample(
-            'Example 1',
-            summary='Attendance Record',
-            description='Clock in and clock out',
-            value={
-                "employee": "employee",
-                "date": "date",
-                "time_in": "time_in",
-                "time_out": "time_out",
-            }
-        )
-    ],
+        examples=[
+            OpenApiExample(
+                'Example 1',
+                summary='Attendance Record',
+                description='Clock in and clock out',
+                value={
+                    "employee": "employee",
+                    "date": "date",
+                    "time_in": "time_in",
+                    "time_out": "time_out",
+                }
+            )
+        ],
 
-    responses={201: OpenApiResponse(response=OpenApiTypes.OBJECT, description='Sucessfully clocked out')},
-)
+        responses={201: OpenApiResponse(response=OpenApiTypes.OBJECT, description='Sucessfully clocked out')},
+    )
 
-def put(self, request, pk):
-    attendance = Attendance.objects.get(pk=pk)
-    serializer = AttendanceSerializer(attendance, data=request.data)
-    if serializer.is_valid():
-        serializer.save()
+    def put(self, request, pk):
+        attendance = Attendance.objects.get(pk=pk)
+        serializer = AttendanceSerializer(attendance, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+    # get all attendance records
+    @extend_schema(
+        responses={200: OpenApiResponse(response=OpenApiTypes.OBJECT, description='All attendance records')},
+    )
+    def get(self, request):
+        attendance = Attendance.objects.all()
+        serializer = AttendanceSerializer(attendance, many=True)
         return Response(serializer.data)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
 
 
-# get all attendance records
-@extend_schema(
-    responses={200: OpenApiResponse(response=OpenApiTypes.OBJECT, description='All attendance records')},
-)
-def get(self, request):
-    attendance = Attendance.objects.all()
-    serializer = AttendanceSerializer(attendance, many=True)
-    return Response(serializer.data)
+class AttendanceDetailView(APIView):
+    """
+    API endpoint that allows attendance records to be viewed, edited or deleted.
+    
+    The `get` function lists all attendance records.
+    
+    The `put` function updates an attendance record.
+    
+    The `delete` function deletes an attendance record.
+    
+    Returns:
+    JSON: A list of all attendance records.
+    
+    """
+    
+    @extend_schema(
+        responses={200: OpenApiResponse(response=OpenApiTypes.OBJECT, description='List of attendance records')},
+    )
+    def get(self, request, pk):
+        attendance = Attendance.objects.get(pk=pk)
+        serializer = AttendanceSerializer(attendance)
+        return Response(serializer.data)
+    
+    @extend_schema(
+        parameters=[
+            OpenApiParameter(name='employee', type=OpenApiTypes.INT, location=OpenApiParameter.QUERY, required=True),
+            OpenApiParameter(name='date', type=OpenApiTypes.DATE, location=OpenApiParameter.QUERY, required=True),
+            OpenApiParameter(name='time_in', type=OpenApiTypes.TIME, location=OpenApiParameter.QUERY, required=True),
+            OpenApiParameter(name='time_out', type=OpenApiTypes.TIME, location=OpenApiParameter.QUERY, required=False),
+            
+        ],
+        examples=[
+            OpenApiExample(
+                'Example 1',
+                summary='Attendance Record',
+                description='Clock in and clock out',
+                value={
+                    "employee": "employee",
+                    "date": "date",
+                    "time_in": "time_in",
+                    "time_out": "time_out",
+                }
+            )
+        ],
+        responses={200: OpenApiResponse(response=OpenApiTypes.OBJECT, description='Attendance record updated')},
+    )
+    def put(self, request, pk):
+        attendance = Attendance.objects.get(pk=pk)
+        serializer = AttendanceSerializer(attendance, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    @extend_schema(
+        responses={204: OpenApiResponse(response=OpenApiTypes.OBJECT, description='Attendance record deleted')},
+    )
+    def delete(self, request, pk):
+        attendance = Attendance.objects.get(pk=pk)
+        attendance.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
     

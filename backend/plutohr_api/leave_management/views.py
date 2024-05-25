@@ -219,6 +219,37 @@ class LeaveApprovalView(APIView):
         
 
 
+class LeaveList(APIView):
+      # Return all the leave requests for a particular employee
+            """
+            API endpoint that allows leaves to be listed.
+
+            The `get` function retrieves the leave data.
+
+            Parameters:
+            employee_pK: int
+
+            Returns:
+            JSON: The leave data.
+
+    
+            """
+
+            @extend_schema(
+                parameters=[
+                    OpenApiParameter(name='employee(pk)', type=str, location=OpenApiParameter.QUERY, required=True),
+                    
+                ],
+                responses={200: OpenApiResponse(response=OpenApiTypes.OBJECT, description='List of leaves')}
+            )
+
+            def get(self, request, pk):
+                leaves = Leave.objects.filter(employee=pk)
+                serializer = LeaveSerializer(leaves, many=True)
+                return Response(serializer.data)
+        
+
+
 class LeaveBalanceView(APIView):
             
             """
@@ -259,6 +290,8 @@ class LeaveBalanceView(APIView):
                     serializer.save()
                     return Response(serializer.data)
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            
+
             
 
 # Todo: add an api endpoint for Dashboard for employees to view leave balances and request history.

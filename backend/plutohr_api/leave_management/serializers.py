@@ -40,7 +40,7 @@ class LeaveStatusSerializer(serializers.ModelSerializer):
 class LeaveBalanceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Leave
-        fields = ['leave_balance']
+        fields = ['leave_balance', 'employee', 'start_date', 'end_date', 'reason', 'status', 'comments']
         extra_kwargs = {'leave_balance': {'read_only': True}}
     
     def update(self, instance, validated_data):
