@@ -14,5 +14,6 @@ urlpatterns = [
     path('leave/list/<int:pk>/', LeaveList.as_view(), name='leave-list'),
 
     path('attendance/', AttendanceRecordView.as_view(), name='attendance-record'),
+    path('attendance/<int:pk>/', AttendanceRecordView.as_view(), name='attendance-record'),
     # Add other URLs here
 ]
