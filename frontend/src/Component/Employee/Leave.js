@@ -77,7 +77,6 @@ function RequestLeave() {
     } catch (error) {
       if (error.response) {
         console.error('Server responded with status:', error.response.status);
-        console.error('Response data:', error.response.data);
         setError(`Error submitting leave request: ${error.response.data.message || error.message}`);
       } else if (error.request) {
         console.error('No response received:', error.request);

@@ -14,6 +14,8 @@ import axios from 'axios';
 const ManagerDashboard=({onLogOut, user})=> {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true); 
   const [leaveRequests, setLeaveRequests] = useState([]);
+  const [acceptedLeave, setAcceptedLeave] = useState([]);
+  const [rejectedLeave, setRejectedLeave] = useState([]);
 
   useEffect(() => {
     const fetchLeaveRequests = async () => {
@@ -27,6 +29,24 @@ const ManagerDashboard=({onLogOut, user})=> {
 
     fetchLeaveRequests();
   }, []);
+
+  const handleAcceptLeave = (index) => {
+    const acceptedRequest = leaveRequests[index];
+    setAcceptedLeave([...acceptedLeave, acceptedRequest]);
+    removeLeaveRequest(index);
+  };
+
+  const handleRejectLeave = (index) => {
+    const rejectedRequest = leaveRequests[index];
+    setRejectedLeave([...rejectedLeave, rejectedRequest]);
+    removeLeaveRequest(index);
+  };
+
+  const removeLeaveRequest = (index) => {
+    const updatedLeaveRequests = leaveRequests.filter((_, i) => i !== index);
+    // Update the leaveRequests state to remove the accepted/rejected request
+    setLeaveRequests(updatedLeaveRequests);
+  };
 
   // Toggle sidebar
   const toggleSidebar = () => {
@@ -44,7 +64,14 @@ const ManagerDashboard=({onLogOut, user})=> {
             <Route path="/" element={<Home user={user} leaveRequests={leaveRequests}/>} />
             <Route path="employee" element={<Employee />} />
             <Route path="/department" element={<Department />} />
-            <Route path="/leave" element={<Leave leaveRequests={leaveRequests} />} />
+            <Route 
+              path="/leave" 
+              element={<Leave 
+              leaveRequests={leaveRequests}
+              onAcceptLeave={handleAcceptLeave}
+              onRejectLeave={handleRejectLeave}
+              />} 
+            />
             <Route path="/attendance" element={<Attendance />} />
             <Route path="/report" element={<Report />} />
             <Route
