@@ -445,7 +445,8 @@ body{
 }
 
 .home-leave-apply-button{
-  width: 150px;
+  padding-left: 10px;
+  padding-right: 10px;
   height: 40px;
   border: none;
   background-color: #acaaaa;

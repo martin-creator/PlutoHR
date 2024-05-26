@@ -6,7 +6,7 @@ const Home = ({ user, leaveRequests, acceptedLeave, rejectedLeave }) => {
   const navigate = useNavigate();
 
   const handleOpenProfile = () => {
-    navigate('/profile');
+    navigate('/employee');
   };
 
   const handleOpenLeaveForm = () => {
@@ -24,7 +24,7 @@ const Home = ({ user, leaveRequests, acceptedLeave, rejectedLeave }) => {
           <div className='home-profile-desc'>
             <div>Welcome back, {user.username}</div>
             <div>I wish you a great day 👍 </div>
-            <button className='open-profile-button' onClick={handleOpenProfile}>View Profile</button>
+            <button className='open-profile-button' onClick={handleOpenProfile}>View Employees</button>
           </div>
           <div className='home-profile-img'>
             <img src='https://avatars.githubusercontent.com/u/148610430?v=4' alt='Profile' />
@@ -94,7 +94,7 @@ const Home = ({ user, leaveRequests, acceptedLeave, rejectedLeave }) => {
             </div>
           </div>
           <div>
-            <button className='home-leave-apply-button' onClick={handleOpenLeaveForm}>Apply for Leave</button>
+            <button className='home-leave-apply-button' onClick={handleOpenLeaveForm}>Open Leave Requests</button>
           </div>
         </div>
       </div>
