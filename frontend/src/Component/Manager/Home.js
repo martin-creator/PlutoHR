@@ -1,18 +1,18 @@
-import React from 'react'
-import { FaHome } from 'react-icons/fa'
-import { useNavigate } from 'react-router-dom'
-// import axios from 'axios';
+import React from 'react';
+import { FaHome } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
-const Home = ({user}) => {
+const Home = ({ user, leaveRequests, acceptedLeave, rejectedLeave }) => {
   const navigate = useNavigate();
 
-  const handleOpenProfile = ()=>{
-    navigate('/profile')
-  }
+  const handleOpenProfile = () => {
+    navigate('/employee');
+  };
 
-  const handleOpenLeaveForm = ()=>{
-    navigate('/leave')
-  }
+  const handleOpenLeaveForm = () => {
+    navigate('/leave');
+  };
+
   return (
     <div className='home'>
       <h3 className='home-heading'>
@@ -24,7 +24,7 @@ const Home = ({user}) => {
           <div className='home-profile-desc'>
             <div>Welcome back, {user.username}</div>
             <div>I wish you a great day 👍 </div>
-            <button className='open-profile-button' onClick={handleOpenProfile}>View Profile</button>
+            <button className='open-profile-button' onClick={handleOpenProfile}>View Employees</button>
           </div>
           <div className='home-profile-img'>
             <img src='https://avatars.githubusercontent.com/u/148610430?v=4' alt='Profile' />
@@ -33,9 +33,9 @@ const Home = ({user}) => {
         <div className='home-stats'>
           <div className='home-stat-heading'>
             <h3>Statistics</h3>
-            <select for="day">
+            <select htmlFor="day">
               <option name="day" id='day' className='day'>Today</option>
-              <option name="day" id='week' className='week'>Today</option>
+              <option name="day" id='week' className='week'>Week</option>
             </select>
           </div>
           <div className='home-stat-details'>
@@ -62,22 +62,26 @@ const Home = ({user}) => {
         <div className='attendance-stat'>
           <div className='attendance-stat-heading'>
             <h3>Attendance & Leaves</h3>
-            <select>
-              <option id='day' className='day'>Today</option>
-              <option id='week' className='week'>Today</option>
+            <select htmlFor="day">
+              <option name="day" id='day' className='day'>Today</option>
+              <option name="day" id='week' className='week'>Week</option>
             </select>
           </div>
           <div className='attendance-stat-detail'>
             <div>
-              <p>9</p>
+              <p>{leaveRequests.length}</p>
               <p>Total Leaves</p>
             </div>
             <div>
-              <p>4 </p>
-              <em>Leaves Taken</em>
+              <p>{acceptedLeave.length}</p>
+              <em>Accepted Leaves</em>
             </div>
             <div>
-              <p>0</p>
+              <p>{rejectedLeave.length}</p>
+              <em>Rejected Leaves</em>
+            </div>
+            <div>
+              <p>{leaveRequests.length - acceptedLeave.length - rejectedLeave.length}</p>
               <em>Pending Approval</em>
             </div>
             <div>
@@ -90,12 +94,12 @@ const Home = ({user}) => {
             </div>
           </div>
           <div>
-            <button className='home-leave-apply-button' onClick={handleOpenLeaveForm}>Apply for Leave</button>
+            <button className='home-leave-apply-button' onClick={handleOpenLeaveForm}>Open Leave Requests</button>
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Home;

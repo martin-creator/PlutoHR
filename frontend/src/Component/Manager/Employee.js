@@ -40,11 +40,10 @@ const Employee = () => {
       console.error('Error adding/updating employee:', error);
     }
   };
-  
 
   const handleDeleteEmployee = async (employee_id) => {
     try {
-      await axios.delete(`/api/v1/employee/detail/${employee_id}/`);
+      await axios.delete(`http://localhost:8000/api/v1/employee/detail/${employee_id}/`);
       const updatedEmployees = employees.filter((employee) => employee.employee_id !== employee_id);
       setEmployees(updatedEmployees);
     } catch (error) {
@@ -59,6 +58,9 @@ const Employee = () => {
 
   const handleTabChange = (index) => {
     setActiveTab(index);
+    if (index === 1 && selectedEmployee) {
+      setSelectedEmployee(null);
+    }
   };
 
   return (
@@ -79,9 +81,8 @@ const Employee = () => {
             <EmployeeTable employees={employees} onDelete={handleDeleteEmployee} onEdit={handleEditEmployee} />
           </TabPanel>
           <TabPanel>
-            <AddEmployee onSubmit={handleAddEmployee} formData={selectedEmployee} setActiveTab={setActiveTab} />
+            <AddEmployee onSubmit={handleAddEmployee} formData={selectedEmployee} />
           </TabPanel>
-
         </Tabs>
       </div>
     </div>
@@ -91,6 +92,7 @@ const Employee = () => {
 export default Employee;
 
 function EmployeeTable({ employees, onDelete, onEdit }) {
+  
   const handleDelete = (employee_id) => {
     onDelete(employee_id);
   };
@@ -118,8 +120,8 @@ function EmployeeTable({ employees, onDelete, onEdit }) {
           </tr>
         </thead>
         <tbody>
-          {employees.map((employee) => (
-            <tr key={employee.employee_id}>
+          {employees.map((employee, index) => (
+            <tr key={index}>
               <td>{employee.employee_id}</td>
               <td>{employee.username}</td>
               <td><a href={`mailto:${employee.email}`}>{employee.email}</a></td>
@@ -141,7 +143,7 @@ function EmployeeTable({ employees, onDelete, onEdit }) {
   );
 }
 
-function AddEmployee({ onSubmit, formData, setActiveTab }) {
+function AddEmployee({ onSubmit, formData }) {
   const departmentOptions = [
     { value: 'IT', label: 'IT' },
     { value: 'Finance', label: 'Finance' },
@@ -199,7 +201,6 @@ function AddEmployee({ onSubmit, formData, setActiveTab }) {
       address: '',
       password: ''
     });
-    setActiveTab(0);
   };
 
   return (
@@ -254,7 +255,7 @@ function AddEmployee({ onSubmit, formData, setActiveTab }) {
             name='password'
             value={employeeData.password}
             onChange={handleChange}
-            required
+            required={!formData} // Password is required only when adding a new employee
           />
         </div>
         <div>
