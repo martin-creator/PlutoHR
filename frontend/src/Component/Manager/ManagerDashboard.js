@@ -3,7 +3,7 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import Home from "./Home";
 import Leave from "./Leave";
-import SignOut from "../SignOut"
+import SignOut from "../SignOut";
 import Report from "./Report";
 import TopBar from "../TopBar";
 import Department from "./Department";
@@ -11,7 +11,7 @@ import Employee from "./Employee";
 import Attendance from "./Attendance";
 import axios from 'axios';
 
-const ManagerDashboard=({onLogOut, user})=> {
+const ManagerDashboard = ({ onLogOut, user }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true); 
   const [leaveRequests, setLeaveRequests] = useState([]);
   const [acceptedLeave, setAcceptedLeave] = useState([]);
@@ -30,47 +30,46 @@ const ManagerDashboard=({onLogOut, user})=> {
     fetchLeaveRequests();
   }, []);
 
-  const handleAcceptLeave = (index) => {
-    const acceptedRequest = leaveRequests[index];
-    setAcceptedLeave([...acceptedLeave, acceptedRequest]);
-    removeLeaveRequest(index);
+  const handleUpdateAcceptedRequests = (acceptedRequests) => {
+    setAcceptedLeave(acceptedRequests);
   };
 
-  const handleRejectLeave = (index) => {
-    const rejectedRequest = leaveRequests[index];
-    setRejectedLeave([...rejectedLeave, rejectedRequest]);
-    removeLeaveRequest(index);
-  };
-
-  const removeLeaveRequest = (index) => {
-    const updatedLeaveRequests = leaveRequests.filter((_, i) => i !== index);
-    // Update the leaveRequests state to remove the accepted/rejected request
-    setLeaveRequests(updatedLeaveRequests);
+  const handleUpdateRejectedRequests = (rejectedRequests) => {
+    setRejectedLeave(rejectedRequests);
   };
 
   // Toggle sidebar
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
-  return(
+
+  return (
     <BrowserRouter>
       <div className={`container ${isSidebarOpen ? "sidebar-open" : "sidebar-close"}`}>
         <div className="sidebar">
-        <Sidebar toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
+          <Sidebar toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
         </div>
         <div className="content">
           <TopBar toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
           <Routes>
-            <Route path="/" element={<Home user={user} leaveRequests={leaveRequests}/>} />
+            <Route 
+              path="/" 
+              element={<Home 
+                          user={user} 
+                          leaveRequests={leaveRequests} 
+                          acceptedLeave={acceptedLeave} 
+                          rejectedLeave={rejectedLeave} 
+                        />} 
+            />
             <Route path="employee" element={<Employee />} />
             <Route path="/department" element={<Department />} />
             <Route 
               path="/leave" 
               element={<Leave 
-              leaveRequests={leaveRequests}
-              onAcceptLeave={handleAcceptLeave}
-              onRejectLeave={handleRejectLeave}
-              />} 
+                          leaveRequests={leaveRequests}
+                          onUpdateAcceptedRequests={handleUpdateAcceptedRequests}
+                          onUpdateRejectedRequests={handleUpdateRejectedRequests}
+                        />} 
             />
             <Route path="/attendance" element={<Attendance />} />
             <Route path="/report" element={<Report />} />
@@ -82,7 +81,7 @@ const ManagerDashboard=({onLogOut, user})=> {
         </div>
       </div>
     </BrowserRouter>
-  ) 
-}
+  );
+};
 
 export default ManagerDashboard;

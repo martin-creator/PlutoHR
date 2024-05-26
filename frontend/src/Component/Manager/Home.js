@@ -1,17 +1,17 @@
-import React from 'react'
-import { FaHome } from 'react-icons/fa'
-import { useNavigate } from 'react-router-dom'
+import React from 'react';
+import { FaHome } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
-const Home = ({user, leaveRequests}) => {
+const Home = ({ user, leaveRequests, acceptedLeave, rejectedLeave }) => {
   const navigate = useNavigate();
 
-  const handleOpenProfile = ()=>{
-    navigate('/profile')
-  }
+  const handleOpenProfile = () => {
+    navigate('/profile');
+  };
 
-  const handleOpenLeaveForm = ()=>{
-    navigate('/leave')
-  }
+  const handleOpenLeaveForm = () => {
+    navigate('/leave');
+  };
 
   return (
     <div className='home'>
@@ -73,11 +73,15 @@ const Home = ({user, leaveRequests}) => {
               <p>Total Leaves</p>
             </div>
             <div>
-              <p>4 </p>
-              <em>Leaves Taken</em>
+              <p>{acceptedLeave.length}</p>
+              <em>Accepted Leaves</em>
             </div>
             <div>
-              <p>0</p>
+              <p>{rejectedLeave.length}</p>
+              <em>Rejected Leaves</em>
+            </div>
+            <div>
+              <p>{leaveRequests.length - acceptedLeave.length - rejectedLeave.length}</p>
               <em>Pending Approval</em>
             </div>
             <div>
@@ -95,7 +99,7 @@ const Home = ({user, leaveRequests}) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Home;

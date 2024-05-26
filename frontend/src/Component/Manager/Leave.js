@@ -1,12 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaPaperPlane } from 'react-icons/fa';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 
-const Leave = ({ leaveRequests }) => {
+const Leave = ({ leaveRequests, onUpdateAcceptedRequests, onUpdateRejectedRequests }) => {
   const [pendingRequests, setPendingRequests] = useState(leaveRequests);
   const [acceptedRequests, setAcceptedRequests] = useState([]);
   const [rejectedRequests, setRejectedRequests] = useState([]);
+
+  useEffect(() => {
+    onUpdateAcceptedRequests(acceptedRequests);
+  }, [acceptedRequests, onUpdateAcceptedRequests]);
+
+  useEffect(() => {
+    onUpdateRejectedRequests(rejectedRequests);
+  }, [rejectedRequests, onUpdateRejectedRequests]);
 
   const handleAccept = (request) => {
     setPendingRequests(pendingRequests.filter((item) => item !== request));
