@@ -157,21 +157,24 @@ function LeaveBalance() {
     <div className='leave-balance-container'>
       <div className='leave-balance'>
         <h4>Leave Balance</h4>
-        <details title='Click the arrow to open'>
-          <summary>Annual Leave</summary>
-          <p>Available: 21 days</p>
-          <p>Taken: 0 days</p>
-        </details>
-        <details title='Click the arrow to open'>
-          <summary>Sick Leave</summary>
-          <p>Available: 10 days</p>
-          <p>Taken: 0 days</p>
-        </details>
-        <details title='Click the arrow to open'>
-          <summary>Maternity Leave</summary>
-          <p>Available: 30 days</p>
-          <p>Taken: 0 days</p>
-        </details>
+        <div className='leave-balance-div'>
+          <div>
+            <p>Annual Leave</p>
+            <p> 21</p>
+          </div>
+          <div>
+            <p>Sick Leave</p>
+            <p> 21</p>
+          </div>
+          <div>
+            <p>Others Leave</p>
+            <p> 21</p>
+          </div>
+          <div>
+            <p>Remaining Leave</p>
+            <p> 21</p>
+          </div>
+        </div>
       </div>
       <div className='leave-history'>
         <h4>Leave History</h4>

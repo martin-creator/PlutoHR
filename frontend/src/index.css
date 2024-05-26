@@ -888,14 +888,20 @@ body{
   padding-bottom: 10px;
 }
 
-.leave-balance details{
-  padding: 10px;
-  cursor: pointer;
+.leave-balance-div{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
 }
 
-.leave-balance details p{
-  padding-top: 10px;
-  padding-left: 10px;
+.leave-balance-div div{
+  text-align: center;
+  padding: 10px;
+  background-color: #acaaaa;
+  margin-top: 10px;
+  border-radius: 5px;
 }
 
 .leave-history table {
@@ -939,6 +945,38 @@ body{
   padding-bottom: 10px;
 }
 
+
+/* Report Page */
+.report-display{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  height: fit-content;
+  padding: 20px;
+  box-shadow: 0px 15px 68px -3px rgba(0,0,0,0.1);
+}
+
+.report-display a{
+  align-content: center;
+  text-decoration: none;
+  border: 1px solid #acaaaa;
+  padding: 10px;
+  height: 30px;
+  border-radius: 5px;
+  color: #000;
+  margin-top: 20px;
+}
+
+.report-display a:hover{
+  align-content: center;
+  text-decoration: none;
+  border: 1px solid #acaaaa;
+  padding: 10px;
+  height: 30px;
+  border-radius: 5px;
+  background-color: #d2d2d2;
+  color: #ffffff;
+}
 
 /* Responsiveness */
 
