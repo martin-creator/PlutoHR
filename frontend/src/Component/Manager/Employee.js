@@ -49,7 +49,7 @@ const Employee = () => {
     } catch (error) {
       console.error('Error deleting employee:', error);
     }
-  };
+  };  
 
   const handleEditEmployee = (employee) => {
     setSelectedEmployee(employee);
