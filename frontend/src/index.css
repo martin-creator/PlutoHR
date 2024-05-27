@@ -987,6 +987,13 @@ body{
   padding-bottom: 10px;
 }
 
+.employee-profile-photo{
+  width: 180px;
+  height: 180px;
+  object-fit: fill;
+  border-radius: 50%;
+}
+
 
 /* Report Page */
 .report-display{

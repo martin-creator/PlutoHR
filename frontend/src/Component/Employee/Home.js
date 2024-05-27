@@ -106,11 +106,11 @@ const Home = ({user}) => {
           </div>
           <div className='attendance-stat-detail'>
             <div>
-              <p>9</p>
+              <p>21</p>
               <p>Total Leaves</p>
             </div>
             <div>
-              <p>4 </p>
+              <p>0</p>
               <em>Leaves Taken</em>
             </div>
             <div>
@@ -118,11 +118,11 @@ const Home = ({user}) => {
               <em>Pending Approval</em>
             </div>
             <div>
-              <p>200</p> 
+              <p>0</p> 
               <em>Worked Days</em>
             </div>
             <div>
-              <p>1000</p> 
+              <p>0</p> 
               <em>Worked Hours</em>
             </div>
           </div>

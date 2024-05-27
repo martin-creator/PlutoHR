@@ -18,7 +18,7 @@ const Leave = ({user}) => {
         </TabList>
 
         <TabPanel>
-          <RequestLeave />
+          <RequestLeave user={user} />
         </TabPanel>
         <TabPanel>
           <LeaveBalance user={user} />
@@ -31,9 +31,9 @@ const Leave = ({user}) => {
 export default Leave;
 
 // Request Leave component
-function RequestLeave() {
+function RequestLeave({user}) {
   const [leaveRequestData, setLeaveRequestData] = useState({
-    employee: '',
+    employee: user.employee_id,
     start_date: '',
     end_date: '',
     reason: '',
@@ -63,7 +63,7 @@ function RequestLeave() {
         end_date: leaveRequestData.end_date,
         reason: leaveRequestData.reason,
         status: 'Requested',
-        comments: leaveRequestData.comments || '',
+        comments: leaveRequestData.comments,
       });
       console.log('Response data:', response.data); 
       setSuccess('Leave request submitted successfully!');
@@ -134,10 +134,10 @@ function RequestLeave() {
             />
           </div>
           <div>
-            <label htmlFor='comment'>Comments</label>
+            <label htmlFor='comments'>Comments</label>
             <input
               type='text'
-              name='comment'
+              name='comments'
               value={leaveRequestData.comments}
               onChange={handleChange}
             />
@@ -158,17 +158,22 @@ function LeaveBalance({ user }) {
   useEffect(() => {
     const fetchLeaveHistory = async () => {
       try {
-        if (user && user.employee_id) { // Check if user and user.employee_id are defined
+        if (user && user.employee_id) {
           const response = await axios.get(`http://localhost:8000/api/v1/manager/leave/${user.employee_id}/`);
-          setLeaveHistory(response.data);
+          if (Array.isArray(response.data)) {
+            setLeaveHistory(response.data);
+          } else {
+            console.error('Fetched leave history is not an array:', response.data);
+          }
         }
       } catch (error) {
         console.error('Error fetching leave history:', error);
       }
     };
-
+  
     fetchLeaveHistory();
-  }, [user]); // Include user in the dependency array
+  }, [user]);
+  
 
   return (
     <div className='leave-balance-container'>
@@ -181,15 +186,15 @@ function LeaveBalance({ user }) {
           </div>
           <div>
             <p>Sick Leave</p>
-            <p> 21</p>
+            <p> 3</p>
           </div>
           <div>
             <p>Others Leave</p>
-            <p> 21</p>
+            <p> 4</p>
           </div>
           <div>
             <p>Remaining Leave</p>
-            <p> 21</p>
+            <p> 14</p>
           </div>
         </div>
       </div>
@@ -198,7 +203,7 @@ function LeaveBalance({ user }) {
         <table>
           <thead>
             <tr>
-              <th>Leave Period</th>
+              <th>Start Date</th>
               <th>Leave Type</th>
               <th>Days Taken</th>
               <th>Reason</th>
@@ -207,7 +212,7 @@ function LeaveBalance({ user }) {
           <tbody>
             {leaveHistory.map((leave, index) => (
               <tr key={index}>
-                <td>{leave.leave_period}</td>
+                <td>{leave.start_date}</td>
                 <td>{leave.leave_type}</td>
                 <td>{leave.days_taken}</td>
                 <td>{leave.reason}</td>
