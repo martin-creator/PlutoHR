@@ -11,7 +11,7 @@ import Employee from "./Employee";
 import Attendance from "./Attendance";
 import axios from 'axios';
 
-const ManagerDashboard = ({ onLogOut, user }) => {
+const ManagerDashboard = ({ onLogOut, user,attendanceData }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true); 
   const [leaveRequests, setLeaveRequests] = useState([]);
   const [acceptedLeave, setAcceptedLeave] = useState([]);
@@ -59,6 +59,7 @@ const ManagerDashboard = ({ onLogOut, user }) => {
                           leaveRequests={leaveRequests} 
                           acceptedLeave={acceptedLeave} 
                           rejectedLeave={rejectedLeave} 
+                          attendanceData={attendanceData}
                         />} 
             />
             <Route path="employee" element={<Employee />} />
@@ -71,7 +72,7 @@ const ManagerDashboard = ({ onLogOut, user }) => {
                           onUpdateRejectedRequests={handleUpdateRejectedRequests}
                         />} 
             />
-            <Route path="/attendance" element={<Attendance />} />
+            <Route path="/attendance" element={<Attendance attendanceData={attendanceData}/>} />
             <Route path="/report" element={<Report />} />
             <Route
               path="/logout"

@@ -14,7 +14,7 @@ function EmployeeProfile( { user} ) {
           <p>{user.username}</p>
           <p>{user.job_title}</p>
           <p>{user.email}</p>
-          <p>Tunga Tech Impact Academy</p>
+          <p>PlutoHR Services Limted</p>
         </div>
       </div>
     </div>

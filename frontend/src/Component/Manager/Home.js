@@ -1,9 +1,48 @@
-import React from 'react';
-import { FaHome } from 'react-icons/fa';
+import React, { useCallback, useEffect, useState } from 'react';
+import { FaHome, FaUser } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-const Home = ({ user, leaveRequests, acceptedLeave, rejectedLeave }) => {
+const Home = ({ user, leaveRequests, acceptedLeave, rejectedLeave, attendanceData }) => {
   const navigate = useNavigate();
+  const [employees, setEmployees] = useState([]);
+  const [uniqueDates, setUniqueDates] = useState([]);
+  const [totalWorkedHours, setTotalWorkedHours] = useState(0);
+
+  // Get unique days in attendance data
+  const extractUniqueDates = useCallback(() => {
+    const dates = attendanceData.map(entry => entry.date);
+    const uniqueDatesSet = new Set(dates);
+    setUniqueDates([...uniqueDatesSet]);
+  }, [attendanceData]);
+
+  // Calculate total worked hours
+  useEffect(() => {
+    let totalHours = 0;
+    attendanceData.forEach(entry => {
+      totalHours += parseFloat(entry.hours_worked); // Assuming hours_worked is present in each entry
+    });
+    setTotalWorkedHours(totalHours.toFixed(2)); // Round to 2 decimal places
+  }, [attendanceData]);
+
+  useEffect(() => {
+    fetchEmployees();
+  }, []);
+
+  useEffect(() => {
+    if (attendanceData.length > 0) {
+      extractUniqueDates();
+    }
+  }, [attendanceData, extractUniqueDates]);
+
+  const fetchEmployees = async () => {
+    try {
+      const response = await axios.get('http://localhost:8000/api/v1/employee/list/');
+      setEmployees(response.data);
+    } catch (error) {
+      console.error('Error fetching employees:', error);
+    }
+  };
 
   const handleOpenProfile = () => {
     navigate('/employee');
@@ -33,29 +72,14 @@ const Home = ({ user, leaveRequests, acceptedLeave, rejectedLeave }) => {
         <div className='home-stats'>
           <div className='home-stat-heading'>
             <h3>Statistics</h3>
-            <select htmlFor="day">
-              <option name="day" id='day' className='day'>Today</option>
-              <option name="day" id='week' className='week'>Week</option>
-            </select>
           </div>
-          <div className='home-stat-details'>
-            <div className='home-stat-worktime'>
-              <p>Work Time</p>
-              <p>6 Hrs : 40 Mins</p>
+          <div className='home-stat-employee'>
+            <div className='employee-icon'>
+              <FaUser className='icon' />
             </div>
-            <div className='home-stat-balance'>
-              <div>
-                <p>Remaining </p>
-                <em>2 Hrs 20 Mins</em>
-              </div>
-              <div>
-                <p>Overtime</p>
-                <em>0 Hrs 00 Mins</em>
-              </div>
-              <div>
-                <p>Break</p> 
-                <em>1 Hrs 00 Mins</em>
-              </div>
+            <div className='employee-stat'>
+              <p>Number of employees</p>
+              <p>{employees.length}</p>
             </div>
           </div>
         </div>
@@ -85,11 +109,11 @@ const Home = ({ user, leaveRequests, acceptedLeave, rejectedLeave }) => {
               <em>Pending Approval</em>
             </div>
             <div>
-              <p>200</p> 
+              <p>{uniqueDates.length}</p>
               <em>Worked Days</em>
             </div>
             <div>
-              <p>1000</p> 
+              <p>{totalWorkedHours}</p>
               <em>Worked Hours</em>
             </div>
           </div>

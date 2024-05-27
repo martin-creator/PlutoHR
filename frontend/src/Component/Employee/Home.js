@@ -1,9 +1,45 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaHome } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
 
 const Home = ({user}) => {
   const navigate = useNavigate();
+  const [timeDifference, setTimeDifference] = useState(null);
+  const workHours = 9; // Define the total work hours
+
+  useEffect(() => {
+    const calculateTimeDifference = () => {
+      const userTimein = new Date(user.timein);
+      const currentTime = new Date();
+      const differenceInMilliseconds = currentTime - userTimein;
+
+      // Convert milliseconds to hours and minutes
+      const hours = Math.floor(differenceInMilliseconds / (1000 * 60 * 60));
+      const minutes = Math.floor((differenceInMilliseconds % (1000 * 60 * 60)) / (1000 * 60));
+
+      setTimeDifference({ hours, minutes });
+    };
+
+    // Initial calculation
+    calculateTimeDifference();
+
+    // Update time difference every minute
+    const intervalId = setInterval(calculateTimeDifference, 60000);
+
+    // Clear interval on component unmount
+    return () => clearInterval(intervalId);
+  }, [user.timein]);
+
+  const calculateRemainingTime = () => {
+    if (timeDifference) {
+      const totalMinutesWorked = timeDifference.hours * 60 + timeDifference.minutes;
+      const remainingMinutes = workHours * 60 - totalMinutesWorked;
+      const remainingHours = Math.floor(remainingMinutes / 60);
+      const remainingMinutesPart = remainingMinutes % 60;
+      return `${remainingHours} Hrs ${remainingMinutesPart} Mins`;
+    }
+    return '';
+  };
 
   const handleOpenProfile = ()=>{
     navigate('/profile')
@@ -40,12 +76,14 @@ const Home = ({user}) => {
           <div className='home-stat-details'>
             <div className='home-stat-worktime'>
               <p>Work Time</p>
-              <p>6 Hrs : 40 Mins</p>
+              <p>
+                {timeDifference && `${timeDifference.hours} hours : ${timeDifference.minutes} minutes`}
+              </p>
             </div>
             <div className='home-stat-balance'>
               <div>
                 <p>Remaining </p>
-                <em>2 Hrs 20 Mins</em>
+                <em>{calculateRemainingTime()}</em>
               </div>
               <div>
                 <p>Overtime</p>

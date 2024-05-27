@@ -49,7 +49,7 @@ const Employee = () => {
     } catch (error) {
       console.error('Error deleting employee:', error);
     }
-  };
+  };  
 
   const handleEditEmployee = (employee) => {
     setSelectedEmployee(employee);
@@ -173,7 +173,8 @@ function AddEmployee({ onSubmit, formData }) {
     department: departmentOptions[0].value,
     role: roleOptions[0].value,
     address: '',
-    password: ''
+    password: '',
+    photo:null,
   });
 
   useEffect(() => {
@@ -184,6 +185,10 @@ function AddEmployee({ onSubmit, formData }) {
 
   const handleChange = (event) => {
     setEmployeeData({ ...employeeData, [event.target.name]: event.target.value });
+  };
+
+  const handleImageChange = (event) => {
+    setEmployeeData({ ...employeeData, image: event.target.files[0] });
   };
 
   const handleSubmit = (event) => {
@@ -199,7 +204,8 @@ function AddEmployee({ onSubmit, formData }) {
       department: departmentOptions[0].value,
       role: roleOptions[0].value,
       address: '',
-      password: ''
+      password: '',
+      photo:null
     });
   };
 
@@ -307,6 +313,15 @@ function AddEmployee({ onSubmit, formData }) {
             onChange={handleChange}
             required
           />
+          <div>
+          <label htmlFor='photo'>Profile Image</label>
+          <input
+            type='file'
+            name='photo'
+            accept='image/*'
+            onChange={handleImageChange}
+          />
+        </div>
         </div>
       </div>
       <button type='submit'>{formData ? 'Update Employee' : 'Add Employee'}</button>

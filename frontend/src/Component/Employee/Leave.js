@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { FaPaperPlane } from 'react-icons/fa';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 
-const Leave = () => {
+const Leave = ({user}) => {
   return (
     <div className='leave'>
       <h3 className='leave-heading'>
@@ -21,7 +21,7 @@ const Leave = () => {
           <RequestLeave />
         </TabPanel>
         <TabPanel>
-          <LeaveBalance />
+          <LeaveBalance user={user} />
         </TabPanel>
       </Tabs>      
     </div>
@@ -134,10 +134,10 @@ function RequestLeave() {
             />
           </div>
           <div>
-            <label htmlFor='comments'>Comments</label>
+            <label htmlFor='comment'>Comments</label>
             <input
               type='text'
-              name='comments'
+              name='comment'
               value={leaveRequestData.comments}
               onChange={handleChange}
             />
@@ -151,27 +151,47 @@ function RequestLeave() {
   );
 }
 
-// Accepted leave component
-function LeaveBalance() {
+// Leave Balance component
+function LeaveBalance({ user }) {
+  const [leaveHistory, setLeaveHistory] = useState([]);
+
+  useEffect(() => {
+    const fetchLeaveHistory = async () => {
+      try {
+        if (user && user.employee_id) { // Check if user and user.employee_id are defined
+          const response = await axios.get(`http://localhost:8000/api/v1/manager/leave/${user.employee_id}/`);
+          setLeaveHistory(response.data);
+        }
+      } catch (error) {
+        console.error('Error fetching leave history:', error);
+      }
+    };
+
+    fetchLeaveHistory();
+  }, [user]); // Include user in the dependency array
+
   return (
     <div className='leave-balance-container'>
       <div className='leave-balance'>
         <h4>Leave Balance</h4>
-        <details title='Click the arrow to open'>
-          <summary>Annual Leave</summary>
-          <p>Available: 21 days</p>
-          <p>Taken: 0 days</p>
-        </details>
-        <details title='Click the arrow to open'>
-          <summary>Sick Leave</summary>
-          <p>Available: 10 days</p>
-          <p>Taken: 0 days</p>
-        </details>
-        <details title='Click the arrow to open'>
-          <summary>Maternity Leave</summary>
-          <p>Available: 30 days</p>
-          <p>Taken: 0 days</p>
-        </details>
+        <div className='leave-balance-div'>
+          <div>
+            <p>Annual Leave</p>
+            <p> 21</p>
+          </div>
+          <div>
+            <p>Sick Leave</p>
+            <p> 21</p>
+          </div>
+          <div>
+            <p>Others Leave</p>
+            <p> 21</p>
+          </div>
+          <div>
+            <p>Remaining Leave</p>
+            <p> 21</p>
+          </div>
+        </div>
       </div>
       <div className='leave-history'>
         <h4>Leave History</h4>
@@ -185,16 +205,17 @@ function LeaveBalance() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
+            {leaveHistory.map((leave, index) => (
+              <tr key={index}>
+                <td>{leave.leave_period}</td>
+                <td>{leave.leave_type}</td>
+                <td>{leave.days_taken}</td>
+                <td>{leave.reason}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
     </div>
   );
 }
-

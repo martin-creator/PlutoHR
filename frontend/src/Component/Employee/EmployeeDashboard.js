@@ -8,7 +8,7 @@ import TopBar from "../TopBar";
 import Attendance from "./Attendance";
 import EmployeeProfile from "./EmployeProfile";
 
-const EmployeeDashboard=({user, onLogOut, logoutTime })=> {
+const EmployeeDashboard=({user, onLogOut, logoutTime, attendanceData })=> {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true); 
 
   // Toggle sidebar
@@ -27,7 +27,7 @@ const EmployeeDashboard=({user, onLogOut, logoutTime })=> {
           <Routes>
             <Route path="/" element={<Home user={user} />} />
             <Route path="/leave" element={<Leave />} />
-            <Route path="/attendance" element={<Attendance user={user} logoutTime={logoutTime} />} />
+            <Route path="/attendance" element={<Attendance attendanceData={attendanceData} user={user} logoutTime={logoutTime} />} />
             <Route path="/profile" element={<EmployeeProfile user={user} />} />
             <Route
               path="/logout"
