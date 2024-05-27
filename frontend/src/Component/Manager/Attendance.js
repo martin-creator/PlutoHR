@@ -54,7 +54,7 @@ const Attendance = ({attendanceData}) => {
                 <td>{item.employee}</td>
                 <td>{item.time_in}</td>
                 <td>{item.time_out}</td>
-                <td>{item.hoursworked}</td>
+                <td>{item.hours_worked}</td>
               </tr>
             ))}
           </tbody>

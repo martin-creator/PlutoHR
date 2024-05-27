@@ -33,7 +33,9 @@ export default function App() {
 
   const handleLogOut = async () => {
     const now = new Date();
-    const logoutTime = now.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
+    const logoutDate = now.toISOString().split('T')[0];
+    let logoutTime = now.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
+    logoutTime=`${logoutDate} ${logoutTime}`;
     setLogoutTime(logoutTime);
     if (user) {
       await sendAttendanceData(user, logoutTime);
