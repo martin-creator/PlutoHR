@@ -1,70 +1,87 @@
-# Getting Started with Create React App
+# Human Resource Management System Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Table of Content
+* [Overview](#overview)
+* [Objective](#objective)
+* [Technologies Used](#technologies-used)
+* [Features](#features)
+* [Room for Improvement](#room-for-improvement)
+* [Progress](#progress)
+* [Contact](#contact)
 
-## Available Scripts
+## Overview
 
-In the project directory, you can run:
+As part of our training at Tunga Tech Impact Academy, we have been tasked to develop a software solution to help organizations manage and optimize their human resource functions such as employee onboarding, attendance tracking, leave management, and reporting.
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Objective
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Develop an HR system to address the most essential functionalities needed to
+streamline Human Resource processes and improve employee management
+within the organization.
 
-### `npm test`
+## Technologies Used
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 1. Backend Dependencies
+Our tech stack includes the following:
+- Python - version 3.12
+- Django - version 5.0.6
+- SqLite (Database)
 
-### `npm run build`
+### 2. Frontend Dependencies
+Our tech stack includes the following:
+- React - 18.3.1
+- CSS3
+- HTML5
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Features
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Ready features
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Login for managers and employees
+- Displaying manager or employee dashboard based on the user role
+- Manager Dashboard to allow managers to perform manager tasks
+- Employee dashboard to allow employees to perform employee tasks
+- Managers can add, edit, or delete an employee
+- Employees can apply for leave
+- Managers can approve or reject leave requests
+- Displaying pending, accepted, or rejected leave requests for managers
+- Attendance tracking feature to take in employee login and logout details
+- Displaying all attendance data for all employees to managers
+- Displaying employee attendance data to the employee
+- Displaying real-time working hours for employees
+- Report generation page for downloading CSV or PDF files summarizing all or an employee's information.
+- Logout notification for users to confirm logging out.
+- Added responsiveness to the system
 
-### `npm run eject`
+## Screenshots
+![image](./images/img_11.png)
+![image](./images/img_12.png)
+![image](./images/img_13.png)
+![image](./images/img_14.png)
+![image](./images/img_15.png)
+![image](./images/img_16.png)
+![image](./images/img_17.png)
+![image](./images/img_18.png)
+![image](./images/img_19.png)
+![image](./images/img_20.png)
+![image](./images/img_21.png)
+![image](./images/img_22.png)
+![image](./images/img_23.png)
+![image](./images/img_24.png)
+![image](./images/img_25.png)
+![image](./images/img_26.png)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Room for Improvement
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Room for improvement:
+- Improve the api endpoints
+- Display specific user attendance to the user
+- Improve login authentication
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Project Status
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Project is: _in progress_ 
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Contact
+Created by <martinlubowa@outlook.com> and <oryemasteve9@gmail.com> - feel free to contact us!
