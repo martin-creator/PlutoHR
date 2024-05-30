@@ -54,6 +54,24 @@ Ready features
 - Logout notification for users to confirm logging out.
 - Added responsiveness to the system
 
+## Screenshots
+![image](./images/img_11.png)
+![image](./images/img_12.png)
+![image](./images/img_13.png)
+![image](./images/img_14.png)
+![image](./images/img_15.png)
+![image](./images/img_16.png)
+![image](./images/img_17.png)
+![image](./images/img_18.png)
+![image](./images/img_19.png)
+![image](./images/img_20.png)
+![image](./images/img_21.png)
+![image](./images/img_22.png)
+![image](./images/img_23.png)
+![image](./images/img_24.png)
+![image](./images/img_25.png)
+![image](./images/img_26.png)
+
 ## Room for Improvement
 
 Room for improvement:
