@@ -2,7 +2,6 @@ import React from 'react';
 import { FaUser } from 'react-icons/fa';
 
 function EmployeeProfile( { user} ) {
-  
   return (
     <div className='profile'>
       <h3 className='profile-heading'>
@@ -11,11 +10,11 @@ function EmployeeProfile( { user} ) {
       </h3>
       <div className='profile-container'>
         <div>
-          <img src='/' alt='Profile ' />
+          <img className='employee-profile-photo' src='https://avatars.githubusercontent.com/u/148610430?v=4' alt='Profile ' />
           <p>{user.username}</p>
           <p>{user.job_title}</p>
-          <p>{user.email}</p>
-          <p>Tunga Tech Impact Academy</p>
+          <a href='mailto:{user.email}'>{user.email}</a>
+          <p>PlutoHR Services Limted</p>
         </div>
       </div>
     </div>

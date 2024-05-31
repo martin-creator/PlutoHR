@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { FaPaperPlane } from 'react-icons/fa';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 
-const Leave = () => {
+const Leave = ({user}) => {
   return (
     <div className='leave'>
       <h3 className='leave-heading'>
@@ -18,10 +18,10 @@ const Leave = () => {
         </TabList>
 
         <TabPanel>
-          <RequestLeave />
+          <RequestLeave user={user} />
         </TabPanel>
         <TabPanel>
-          <LeaveBalance />
+          <LeaveBalance user={user} />
         </TabPanel>
       </Tabs>      
     </div>
@@ -31,13 +31,15 @@ const Leave = () => {
 export default Leave;
 
 // Request Leave component
-function RequestLeave() {
+function RequestLeave({user}) {
   const [leaveRequestData, setLeaveRequestData] = useState({
-    employee: '',
+    employee: user.employee_id,
     start_date: '',
     end_date: '',
     reason: '',
+    comments: '',
   });
+
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
 
@@ -47,28 +49,44 @@ function RequestLeave() {
       ...prevData,
       [name]: value,
     }));
-  };  
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
     setSuccess(null);
-  
+
     try {
-      await axios.post('http://localhost:8000/api/v1/employee/leave/', leaveRequestData);
+      const response = await axios.post('http://localhost:8000/api/v1/employee/leave/', {
+        employee: leaveRequestData.employee,
+        start_date: leaveRequestData.start_date,
+        end_date: leaveRequestData.end_date,
+        reason: leaveRequestData.reason,
+        status: 'Requested',
+        comments: leaveRequestData.comments,
+      });
+      console.log('Response data:', response.data); 
       setSuccess('Leave request submitted successfully!');
       setLeaveRequestData({
-        employee: '',
+        employee: leaveRequestData.employee,
         start_date: '',
         end_date: '',
         reason: '',
+        comments: '',
       });
     } catch (error) {
-      setError('Error submitting leave request');
-      console.error('Error submitting leave request:', error);
+      if (error.response) {
+        console.error('Server responded with status:', error.response.status);
+        setError(`Error submitting leave request: ${error.response.data.message || error.message}`);
+      } else if (error.request) {
+        console.error('No response received:', error.request);
+        setError('Error submitting leave request: No response from server.');
+      } else {
+        console.error('Error setting up the request:', error.message);
+        setError(`Error submitting leave request: ${error.message}`);
+      }
     }
   };
-  
 
   return (
     <div className='leave-display'>
@@ -76,7 +94,7 @@ function RequestLeave() {
       <form className='leave-request-form' onSubmit={handleSubmit}>
         <div className='add-employee-input-container'>
           <div>
-            <label htmlFor='employee'>Employee Name</label>
+            <label htmlFor='employee'>Employee ID</label>
             <input
               type='text'
               name='employee'
@@ -115,6 +133,15 @@ function RequestLeave() {
               required
             />
           </div>
+          <div>
+            <label htmlFor='comments'>Comments</label>
+            <input
+              type='text'
+              name='comments'
+              value={leaveRequestData.comments}
+              onChange={handleChange}
+            />
+          </div>
         </div>
         {error && <p style={{ color: 'red' }}>{error}</p>}
         {success && <p style={{ color: 'green' }}>{success}</p>}
@@ -124,50 +151,76 @@ function RequestLeave() {
   );
 }
 
-// Accepted leave component
-function LeaveBalance() {
+// Leave Balance component
+function LeaveBalance({ user }) {
+  const [leaveHistory, setLeaveHistory] = useState([]);
+
+  useEffect(() => {
+    const fetchLeaveHistory = async () => {
+      try {
+        if (user && user.employee_id) {
+          const response = await axios.get(`http://localhost:8000/api/v1/manager/leave/${user.employee_id}/`);
+          if (Array.isArray(response.data)) {
+            setLeaveHistory(response.data);
+          } else {
+            console.error('Fetched leave history is not an array:', response.data);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching leave history:', error);
+      }
+    };
+  
+    fetchLeaveHistory();
+  }, [user]);
+  
+
   return (
     <div className='leave-balance-container'>
       <div className='leave-balance'>
         <h4>Leave Balance</h4>
-        <details title='Click the arrow to open'>
-          <summary>Annual Leave</summary>
-          <p>Available: 21 days</p>
-          <p>Taken: 0 days</p>
-        </details>
-        <details title='Click the arrow to open'>
-          <summary>Sick Leave</summary>
-          <p>Available: 10 days</p>
-          <p>Taken: 0 days</p>
-        </details>
-        <details title='Click the arrow to open'>
-          <summary>Maternity Leave</summary>
-          <p>Available: 30 days</p>
-          <p>Taken: 0 days</p>
-        </details>
+        <div className='leave-balance-div'>
+          <div>
+            <p>Annual Leave</p>
+            <p> 21</p>
+          </div>
+          <div>
+            <p>Sick Leave</p>
+            <p> 3</p>
+          </div>
+          <div>
+            <p>Others Leave</p>
+            <p> 4</p>
+          </div>
+          <div>
+            <p>Remaining Leave</p>
+            <p> 14</p>
+          </div>
+        </div>
       </div>
       <div className='leave-history'>
         <h4>Leave History</h4>
         <table>
           <thead>
             <tr>
-              <th>Leave Period</th>
+              <th>Start Date</th>
               <th>Leave Type</th>
               <th>Days Taken</th>
               <th>Reason</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
+            {leaveHistory.map((leave, index) => (
+              <tr key={index}>
+                <td>{leave.start_date}</td>
+                <td>{leave.leave_type}</td>
+                <td>{leave.days_taken}</td>
+                <td>{leave.reason}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
     </div>
   );
 }
-

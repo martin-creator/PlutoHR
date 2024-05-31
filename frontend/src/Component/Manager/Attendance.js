@@ -1,54 +1,21 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaCalendarCheck } from 'react-icons/fa';
 
-const Attendance = () => { 
-  const attendanceData = useMemo(() => [
-    {
-      Date: '01/04/2024',
-      EmployeeName: 'Steph',
-      Email: 'steph@plutohr.com',
-      Position: 'Developer',
-      Department: 'Software',
-      TimeIn: '9:20a m',
-      Timeout: '5:00pm',
-      HoursWorked: '7hr 40 mins',
-    },
-    {
-      Date: '02/04/2024',
-      EmployeeName: 'Martin',
-      Email: 'martin@plutohr.com',
-      Position: 'Developer',
-      Department: 'Software',
-      TimeIn: '8:20a m',
-      Timeout: '4:50pm',
-      HoursWorked: '8hr 40 mins',
-    },
-    {
-      Date: '03/04/2024',
-      EmployeeName: 'Angella',
-      Email: 'angel@plutohr.com',
-      Position: 'HR',
-      Department: 'Human Resoucrce',
-      TimeIn: '9:20a m',
-      Timeout: '5:00pm',
-      HoursWorked: '7hr 40 mins',
-    },
-  ], [])
+const Attendance = ({attendanceData}) => {
+  const [filteredData, setFilteredData] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
 
-  const [filteredData, setFilteredData] = useState(attendanceData); 
-  const [searchTerm, setSearchTerm] = useState(''); 
+  //Filter attendance data based on date/employee id
   useEffect(() => {
     const filterData = attendanceData.filter((item) => {
       const searchTextLower = searchTerm.toLowerCase();
       return (
-        item.Date.toLowerCase().includes(searchTextLower) ||
-        item.EmployeeName.toLowerCase().includes(searchTextLower) ||
-        item.Position.toLowerCase().includes(searchTextLower) ||
-        item.Department.toLowerCase().includes(searchTextLower)
+        item.date.includes(searchTextLower) ||
+        item.employee.includes(searchTextLower)
       );
     });
     setFilteredData(filterData);
-  }, [searchTerm, attendanceData]); 
+  }, [searchTerm, attendanceData]);
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -75,25 +42,19 @@ const Attendance = () => {
             <tr>
               <th>Date</th>
               <th>Employee Name</th>
-              <th>Email</th>
-              <th>Position</th>
-              <th>Department</th>
               <th>TimeIn</th>
               <th>Timeout</th>
               <th>Hours worked</th>
             </tr>
           </thead>
           <tbody>
-            {filteredData.map((item) => (
-              <tr key={item.Date}> 
-                <td>{item.Date}</td>
-                <td>{item.EmployeeName}</td>
-                <td><a href={`mailto: ${item.Email}`}>{item.Email}</a></td>
-                <td>{item.Position}</td>
-                <td>{item.Department}</td>
-                <td>{item.TimeIn}</td>
-                <td>{item.Timeout}</td>
-                <td>{item.HoursWorked}</td>
+            {filteredData.map((item, index) => (
+              <tr key={index}>
+                <td>{item.date}</td>
+                <td>{item.employee}</td>
+                <td>{item.time_in}</td>
+                <td>{item.time_out}</td>
+                <td>{item.hours_worked}</td>
               </tr>
             ))}
           </tbody>
