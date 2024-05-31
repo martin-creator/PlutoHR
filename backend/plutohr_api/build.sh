@@ -16,4 +16,4 @@ python manage.py migrate
 
 
 
-python -m gunicorn plutohr_api.asgi:application -k uvicorn.workers.UvicornWorker
+# python -m gunicorn plutohr_api.asgi:application -k uvicorn.workers.UvicornWorker
