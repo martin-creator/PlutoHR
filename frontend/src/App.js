@@ -54,7 +54,7 @@ export default function App() {
 
     try {
       console.log('Sending attendance data:', attendanceEntry);
-      const response = await axios.post('http://localhost:8000/api/v1/manager/attendance/', attendanceEntry); // Update the API endpoint
+      const response = await axios.post('https://plutohr-yh2n.onrender.com/api/v1/manager/attendance/', attendanceEntry); // Update the API endpoint
       console.log('Attendance data sent successfully:', response.data);
       fetchAttendanceData(); // Fetch attendance data after sending new entry
     } catch (error) {
@@ -64,7 +64,7 @@ export default function App() {
 
   const fetchAttendanceData = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/v1/manager/attendance/');
+      const response = await axios.get('https://plutohr-yh2n.onrender.com/api/v1/manager/attendance/');
       setAttendanceData(response.data);
     } catch (error) {
       console.error('Error fetching attendance data:', error.response ? error.response.data : error.message);

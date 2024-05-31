@@ -15,7 +15,7 @@ const Employee = () => {
 
   const fetchEmployees = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/v1/employee/list/');
+      const response = await axios.get('https://plutohr-yh2n.onrender.com/api/v1/employee/list/');
       setEmployees(response.data);
     } catch (error) {
       console.error('Error fetching employees:', error);
@@ -25,14 +25,14 @@ const Employee = () => {
   const handleAddEmployee = async (employeeData) => {
     try {
       if (selectedEmployee) {
-        const response = await axios.put(`http://localhost:8000/api/v1/employee/detail/${selectedEmployee.id}/`, employeeData);
+        const response = await axios.put(`https://plutohr-yh2n.onrender.com/api/v1/employee/detail/${selectedEmployee.id}/`, employeeData);
         const updatedEmployees = employees.map(employee =>
           employee.id === selectedEmployee.id ? response.data : employee
         );
         setEmployees(updatedEmployees);
         setSelectedEmployee(null);
       } else {
-        const response = await axios.post('http://localhost:8000/api/v1/employee/register/', employeeData);
+        const response = await axios.post('https://plutohr-yh2n.onrender.com/api/v1/employee/register/', employeeData);
         setEmployees([...employees, response.data]);
       }
       setActiveTab(0);
@@ -43,7 +43,7 @@ const Employee = () => {
 
   const handleDeleteEmployee = async (employee_id) => {
     try {
-      await axios.delete(`http://localhost:8000/api/v1/employee/detail/${employee_id}/`);
+      await axios.delete(`https://plutohr-yh2n.onrender.com/api/v1/employee/detail/${employee_id}/`);
       const updatedEmployees = employees.filter((employee) => employee.employee_id !== employee_id);
       setEmployees(updatedEmployees);
     } catch (error) {

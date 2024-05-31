@@ -20,7 +20,7 @@ const ManagerDashboard = ({ onLogOut, user,attendanceData }) => {
   useEffect(() => {
     const fetchLeaveRequests = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/api/v1/employee/leave/');
+        const response = await axios.get('https://plutohr-yh2n.onrender.com/api/v1/employee/leave/');
         setLeaveRequests(response.data);
       } catch (error) {
         console.error('Error fetching leave requests:', error);
