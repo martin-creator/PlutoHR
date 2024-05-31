@@ -9,9 +9,9 @@ const Report = () => {
         Report
       </h3>
       <div className='report-display'>
-         <a href='http://localhost:8000/api/v1/manager/company-overview/'>Download Company Overview</a>
-        <a href='http://localhost:8000/api/v1/manager/attendance/report/'>Download Attendance Report</a>
-        <a href='http://localhost:8000/api/v1/manager/leave/report/'>Download Leave Report</a>
+         <a href='https://plutohr-yh2n.onrender.com/api/v1/manager/company-overview/'>Download Company Overview</a>
+        <a href='https://plutohr-yh2n.onrender.com/api/v1/manager/attendance/report/'>Download Attendance Report</a>
+        <a href='https://plutohr-yh2n.onrender.com/api/v1/manager/leave/report/'>Download Leave Report</a>
       </div>
     </div>
   )
