@@ -9,7 +9,7 @@ function Login({ onLogin }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.get('http://localhost:8000/api/v1/employee/list/');
+      const response = await axios.get('https://plutohr-yh2n.onrender.com/api/v1/employee/list/');
       const users = response.data;
       const user = users.find(user => user.email === email && user.username === username);
       if (user) {

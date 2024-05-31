@@ -57,7 +57,7 @@ function RequestLeave({user}) {
     setSuccess(null);
 
     try {
-      const response = await axios.post('http://localhost:8000/api/v1/employee/leave/', {
+      const response = await axios.post('https://plutohr-yh2n.onrender.com/api/v1/employee/leave/', {
         employee: leaveRequestData.employee,
         start_date: leaveRequestData.start_date,
         end_date: leaveRequestData.end_date,
@@ -159,7 +159,7 @@ function LeaveBalance({ user }) {
     const fetchLeaveHistory = async () => {
       try {
         if (user && user.employee_id) {
-          const response = await axios.get(`http://localhost:8000/api/v1/manager/leave/${user.employee_id}/`);
+          const response = await axios.get(`https://plutohr-yh2n.onrender.com/api/v1/manager/leave/${user.employee_id}/`);
           if (Array.isArray(response.data)) {
             setLeaveHistory(response.data);
           } else {
