@@ -33,7 +33,7 @@ export default Leave;
 // Request Leave component
 function RequestLeave({user}) {
   const [leaveRequestData, setLeaveRequestData] = useState({
-    employee: user.employee_id,
+    employee: '',
     start_date: '',
     end_date: '',
     reason: '',
@@ -58,7 +58,7 @@ function RequestLeave({user}) {
 
     try {
       const response = await axios.post('https://plutohr-yh2n.onrender.com/api/v1/employee/leave/', {
-        employee: leaveRequestData.employee,
+        employee_pK: leaveRequestData.employee,
         start_date: leaveRequestData.start_date,
         end_date: leaveRequestData.end_date,
         reason: leaveRequestData.reason,
