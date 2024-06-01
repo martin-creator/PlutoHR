@@ -28,20 +28,14 @@ export default function App() {
     };
     setUser(updatedUser);
     setIsLoggedIn(true);
-    await sendAttendanceData(updatedUser, null);
+    sendAttendanceData(updatedUser);
   };
 
-  const handleLogOut = async () => {
-    const now = new Date();
-    const logoutDate = now.toISOString().split('T')[0];
-    let logoutTime = now.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
-    logoutTime=`${logoutDate} ${logoutTime}`;
-    setLogoutTime(logoutTime);
-    if (user) {
-      await sendAttendanceData(user, logoutTime);
-    }
+  const handleLogOut = () => {
     setIsLoggedIn(false);
-    setUser(null);
+    const now = new Date();
+    const logoutTime = now.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
+    setLogoutTime(`${user.loginDate} ${logoutTime}`);
   };
 
   const sendAttendanceData = async (user, logoutTime) => {
@@ -49,14 +43,13 @@ export default function App() {
       employee: user.employee_id,
       date: user.loginDate,
       time_in: user.timein.split(' ')[1],
-      time_out: logoutTime ? logoutTime.split(' ')[1] : '',
+      time_out: logoutTime ? logoutTime.split(' ')[1] : ' ',
     };
 
     try {
-      console.log('Sending attendance data:', attendanceEntry);
-      const response = await axios.post('https://plutohr-yh2n.onrender.com/api/v1/manager/attendance/', attendanceEntry); // Update the API endpoint
-      console.log('Attendance data sent successfully:', response.data);
-      fetchAttendanceData(); // Fetch attendance data after sending new entry
+      await axios.post('https://plutohr-yh2n.onrender.com/api/v1/manager/attendance/', attendanceEntry);
+      // console.log('Attendance data sent successfully:', response.data);
+      fetchAttendanceData();
     } catch (error) {
       console.error('Error sending attendance data:', error.response ? error.response.data : error.message);
     }

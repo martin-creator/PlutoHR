@@ -11,7 +11,7 @@ function EmployeeProfile( { user} ) {
       <div className='profile-container'>
         <div>
           <img className='employee-profile-photo' src='https://avatars.githubusercontent.com/u/148610430?v=4' alt='Profile ' />
-          <p>{user.username}</p>
+          <p className='employee-name'>{user.username}</p>
           <p>{user.job_title}</p>
           <a href='mailto:{user.email}'>{user.email}</a>
           <p>PlutoHR Services Limted</p>

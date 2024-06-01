@@ -10,7 +10,7 @@ function SignOut({ onLogOut }) {
 
   const handleYesSignOut = () => {
     onLogOut(); 
-    navigate('/login'); 
+    navigate('/'); 
   };
 
   return (
