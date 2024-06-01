@@ -36,25 +36,28 @@ export default function App() {
     const now = new Date();
     const logoutTime = now.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
     setLogoutTime(`${user.loginDate} ${logoutTime}`);
+    sendAttendanceData(user, `${user.loginDate} ${logoutTime}`);
   };
+  
 
   const sendAttendanceData = async (user, logoutTime) => {
+    const time_out = logoutTime ? logoutTime.split(' ')[1] : ''; // Ensure correct time format
     const attendanceEntry = {
       employee: user.employee_id,
       date: user.loginDate,
       time_in: user.timein.split(' ')[1],
-      time_out: logoutTime ? logoutTime.split(' ')[1] : ' ',
+      time_out: time_out,
     };
-
+  
     try {
-      await axios.post('https://plutohr-yh2n.onrender.com/api/v1/manager/attendance/', attendanceEntry);
-      // console.log('Attendance data sent successfully:', response.data);
+      const response = await axios.post('https://plutohr-yh2n.onrender.com/api/v1/manager/attendance/', attendanceEntry);
+      console.log('Attendance data sent successfully:', response.data);
       fetchAttendanceData();
     } catch (error) {
       console.error('Error sending attendance data:', error.response ? error.response.data : error.message);
     }
   };
-
+  
   const fetchAttendanceData = async () => {
     try {
       const response = await axios.get('https://plutohr-yh2n.onrender.com/api/v1/manager/attendance/');
