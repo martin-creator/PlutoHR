@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { FaCalendarCheck } from 'react-icons/fa';
-// import axios from 'axios';
 
 const Attendance = ({ user }) => {
   const [hoursWorked, setHoursWorked] = useState(null);
@@ -48,7 +47,7 @@ const Attendance = ({ user }) => {
                 <td>{user.username}</td>
                 <td>{user.timein.split(' ')[1]}</td>
                 <td>{user.time_out}</td>
-                <td>{hoursWorked}</td>
+                <td>{Math.round(hoursWorked, 2)}</td>
               </tr>
           </tbody>
         </table>

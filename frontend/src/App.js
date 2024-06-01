@@ -72,7 +72,7 @@ export default function App() {
       {user.role === 'Manager' ? (
         <ManagerDashboard attendanceData={attendanceData} user={user} logoutTime={logoutTime} onLogOut={handleLogOut} />
       ) : (
-        <EmployeeDashboard user={user} logoutTime={logoutTime} onLogOut={handleLogOut} />
+        <EmployeeDashboard attendanceData={attendanceData} user={user} logoutTime={logoutTime} onLogOut={handleLogOut} />
       )}
     </>
   ) : (
