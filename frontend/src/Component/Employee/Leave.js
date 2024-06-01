@@ -31,9 +31,9 @@ const Leave = ({user}) => {
 export default Leave;
 
 // Request Leave component
-function RequestLeave({user}) {
+function RequestLeave({ user }) {
   const [leaveRequestData, setLeaveRequestData] = useState({
-    employee: '',
+    employee: user.employee_id, 
     start_date: '',
     end_date: '',
     reason: '',
@@ -57,7 +57,7 @@ function RequestLeave({user}) {
     setSuccess(null);
 
     try {
-      const response = await axios.post('https://plutohr-yh2n.onrender.com/api/v1/employee/leave/', {
+      await axios.post('https://plutohr-yh2n.onrender.com/api/v1/employee/leave/', {
         employee_pK: leaveRequestData.employee,
         start_date: leaveRequestData.start_date,
         end_date: leaveRequestData.end_date,
@@ -65,26 +65,16 @@ function RequestLeave({user}) {
         status: 'Requested',
         comments: leaveRequestData.comments,
       });
-      console.log('Response data:', response.data); 
-      setSuccess('Leave request submitted successfully!');
+      alert('Leave request submitted successfully!');
       setLeaveRequestData({
-        employee: leaveRequestData.employee,
+        employee: user.employee_id,
         start_date: '',
         end_date: '',
         reason: '',
         comments: '',
       });
     } catch (error) {
-      if (error.response) {
-        console.error('Server responded with status:', error.response.status);
-        setError(`Error submitting leave request: ${error.response.data.message || error.message}`);
-      } else if (error.request) {
-        console.error('No response received:', error.request);
-        setError('Error submitting leave request: No response from server.');
-      } else {
-        console.error('Error setting up the request:', error.message);
-        setError(`Error submitting leave request: ${error.message}`);
-      }
+      console.log(error)
     }
   };
 
@@ -96,7 +86,7 @@ function RequestLeave({user}) {
           <div>
             <label htmlFor='employee'>Employee ID</label>
             <input
-              type='text'
+              type='number'
               name='employee'
               value={leaveRequestData.employee}
               onChange={handleChange}
