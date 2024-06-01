@@ -43,13 +43,12 @@ export default function App() {
       employee: user.employee_id,
       date: user.loginDate,
       time_in: user.timein.split(' ')[1],
-      time_out: logoutTime ? logoutTime.split(' ')[1] : '',
+      time_out: logoutTime ? logoutTime.split(' ')[1] : ' ',
     };
 
     try {
-      console.log('Sending attendance data:', attendanceEntry);
-      const response = await axios.post('https://plutohr-yh2n.onrender.com/api/v1/manager/attendance/', attendanceEntry);
-      console.log('Attendance data sent successfully:', response.data);
+      await axios.post('https://plutohr-yh2n.onrender.com/api/v1/manager/attendance/', attendanceEntry);
+      // console.log('Attendance data sent successfully:', response.data);
       fetchAttendanceData();
     } catch (error) {
       console.error('Error sending attendance data:', error.response ? error.response.data : error.message);

@@ -112,7 +112,6 @@ function EmployeeTable({ employees, onDelete, onEdit }) {
             <th>Email</th>
             <th>Phone</th>
             <th>Job Title</th>
-            <th>Job Status</th>
             <th>Department</th>
             <th>Role</th>
             <th>Address</th>
@@ -127,7 +126,6 @@ function EmployeeTable({ employees, onDelete, onEdit }) {
               <td><a href={`mailto:${employee.email}`}>{employee.email}</a></td>
               <td>{employee.phone_number}</td>
               <td>{employee.job_title}</td>
-              <td>{employee.job_status}</td>
               <td>{employee.department}</td>
               <td>{employee.role}</td>
               <td>{employee.address}</td>
@@ -151,13 +149,6 @@ function AddEmployee({ onSubmit, formData }) {
     { value: 'Admin', label: 'Admin' },
   ];
 
-  const jobStatusOptions = [
-    { value: 'Active', label: 'Active' },
-    { value: 'Inactive', label: 'Inactive' },
-    { value: 'Leave', label: 'Leave' },
-    { value: 'Suspended', label: 'Suspended' },
-  ];
-
   const roleOptions = [
     { value: 'Manager', label: 'Manager' },
     { value: 'Employee', label: 'Employee' },
@@ -169,7 +160,6 @@ function AddEmployee({ onSubmit, formData }) {
     email: '',
     phone_number: '',
     job_title: '',
-    job_status: jobStatusOptions[0].value,
     department: departmentOptions[0].value,
     role: roleOptions[0].value,
     address: '',
@@ -187,10 +177,6 @@ function AddEmployee({ onSubmit, formData }) {
     setEmployeeData({ ...employeeData, [event.target.name]: event.target.value });
   };
 
-  const handleImageChange = (event) => {
-    setEmployeeData({ ...employeeData, image: event.target.files[0] });
-  };
-
   const handleSubmit = (event) => {
     event.preventDefault();
     onSubmit(employeeData);
@@ -200,7 +186,6 @@ function AddEmployee({ onSubmit, formData }) {
       email: '',
       phone_number: '',
       job_title: '',
-      job_status: jobStatusOptions[0].value,
       department: departmentOptions[0].value,
       role: roleOptions[0].value,
       address: '',
@@ -275,16 +260,6 @@ function AddEmployee({ onSubmit, formData }) {
           />
         </div>
         <div>
-          <label htmlFor='job_status'>Job Status</label>
-          <select name='job_status' value={employeeData.job_status} onChange={handleChange} required>
-            {jobStatusOptions.map((status) => (
-              <option key={status.value} value={status.value}>
-                {status.label}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
           <label htmlFor='department'>Department</label>
           <select name='department' value={employeeData.department} onChange={handleChange} required>
             {departmentOptions.map((dept) => (
@@ -313,15 +288,6 @@ function AddEmployee({ onSubmit, formData }) {
             onChange={handleChange}
             required
           />
-          <div>
-          <label htmlFor='photo'>Profile Image</label>
-          <input
-            type='file'
-            name='photo'
-            accept='image/*'
-            onChange={handleImageChange}
-          />
-        </div>
         </div>
       </div>
       <button type='submit'>{formData ? 'Update Employee' : 'Add Employee'}</button>

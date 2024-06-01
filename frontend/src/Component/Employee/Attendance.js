@@ -42,17 +42,6 @@ const Attendance = ({ user }) => {
               <th>Hours worked</th>
             </tr>
           </thead>
-          {/* <tbody>
-            {attendanceData.map((item, index) => (
-              <tr key={index}>
-                <td>{item.date}</td>
-                <td>{item.employee}</td>
-                <td>{item.time_in}</td>
-                <td>{item.time_out}</td>
-                <td>{item.hoursworked}</td>
-              </tr>
-            ))}
-          </tbody> */}
           <tbody>
               <tr>
                 <td>{user.loginDate}</td>

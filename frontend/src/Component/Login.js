@@ -58,16 +58,6 @@ function Login({ onLogin }) {
           </div>
           {error && <p style={{ color: 'red' }}>{error}</p>}
           <button className="login-button" type="submit">Login</button>
-          <div className="open-signup">
-            <p>Not Registered?</p>
-            <button
-              type="button"
-              className="signup-switch-button"
-              onClick={() => setIsSignup(true)}
-            >
-              Signup
-            </button>
-          </div>
         </form>
       )}
     </div>

@@ -2,20 +2,36 @@ import React, { useState } from "react";
 import axios from 'axios';
 
 function Signup({ onSignupSuccess, onSwitchToLogin }) {
+  const departmentOptions = [
+    { value: 'IT', label: 'IT' },
+    { value: 'Finance', label: 'Finance' },
+    { value: 'HR', label: 'HR' },
+    { value: 'Admin', label: 'Admin' },
+  ];
+
+  const roleOptions = [
+    { value: 'Manager', label: 'Manager' },
+    { value: 'Employee', label: 'Employee' },
+  ];
+
   const [formData, setFormData] = useState({
+    employee_id: '',
     username: '',
     email: '',
     password: '',
     phone_number: '',
     job_title: '',
-    job_status: 'Active',
     department: 'IT',
     role: 'Employee',
     address: '',
   });
 
   const handleChange = (event) => {
-    setFormData({ ...formData, [event.target.name]: event.target.value });
+    const { name, value } = event.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value
+    }));
   };
 
   const handleSubmit = async (event) => {
@@ -31,8 +47,20 @@ function Signup({ onSignupSuccess, onSwitchToLogin }) {
 
   return (
     <div className="signup-container">
-        <h2 className="signup-title">Signup to PLutoHR</h2><br /> 
+        <h2 className="signup-title">Signup to PlutoHR</h2><br /> 
       <form className="signup-form" onSubmit={handleSubmit}>
+        <div>
+          <label className="label" htmlFor="employee_id">EmployeeID</label>
+          <input
+            className="signup-input"
+            id="employee_id"
+            type="text"
+            name="employee_id"
+            required
+            value={formData.employee_id}
+            onChange={handleChange}
+          />
+        </div>
         <div>
           <label className="label" htmlFor="username">Username</label>
           <input
@@ -94,22 +122,6 @@ function Signup({ onSignupSuccess, onSwitchToLogin }) {
           />
         </div>
         <div>
-          <label className="label" htmlFor="job_status">Job Status</label>
-          <select
-            className="signup-input"
-            id="job_status"
-            name="job_status"
-            required
-            value={formData.job_status}
-            onChange={handleChange}
-          >
-            <option value="Active">Active</option>
-            <option value="Inactive">Inactive</option>
-            <option value="Leave">Leave</option>
-            <option value="Suspended">Suspended</option>
-          </select>
-        </div>
-        <div>
           <label className="label" htmlFor="department">Department</label>
           <select
             className="signup-input"
@@ -119,10 +131,11 @@ function Signup({ onSignupSuccess, onSwitchToLogin }) {
             value={formData.department}
             onChange={handleChange}
           >
-            <option value="IT">IT</option>
-            <option value="Finance">Finance</option>
-            <option value="HR">HR</option>
-            <option value="Admin">Admin</option>
+            {departmentOptions.map((dept) => (
+              <option key={dept.value} value={dept.value}>
+                {dept.label}
+              </option>
+            ))}
           </select>
         </div>
         <div>
@@ -135,8 +148,11 @@ function Signup({ onSignupSuccess, onSwitchToLogin }) {
             value={formData.role}
             onChange={handleChange}
           >
-            <option value="Manager">Manager</option>
-            <option value="Employee">Employee</option>
+             {roleOptions.map((role) => (
+              <option key={role.value} value={role.value}>
+                {role.label}
+              </option>
+            ))}
           </select>
         </div>
         <div>
@@ -151,7 +167,9 @@ function Signup({ onSignupSuccess, onSwitchToLogin }) {
             onChange={handleChange}
           />
         </div><br />
-        <button className="signup-button" type="submit">Signup</button>
+        <div className="signup-button-cont">
+            <button className="signup-button" type="submit">Signup</button>
+        </div>
       </form>
       <div className="open-signup">
             <p>Already signed up?</p>
