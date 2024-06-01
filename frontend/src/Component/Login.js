@@ -58,6 +58,19 @@ function Login({ onLogin }) {
           </div>
           {error && <p style={{ color: 'red' }}>{error}</p>}
           <button className="login-button" type="submit">Login</button>
+          <div className="login-credential">
+            <p>Login Credentials</p>
+            <span>If Manager:</span><br />
+            <div>
+              <span>Username: Stephen</span><br />
+              <span>Email: stephen@plutohr.com</span>
+            </div>
+            <span>If Employee:</span><br />
+            <div>
+              <span>Username: Martin</span><br />
+              <span>Email: martin@plutohr.com</span>
+            </div>
+          </div>
         </form>
       )}
     </div>
