@@ -8,6 +8,11 @@ const Report = () => {
         <span><FaTable /></span>
         Report
       </h3>
+      <div className='report-display'>
+         <a href='http://localhost:8000/api/v1/manager/company-overview/'>Download Company Overview</a>
+        <a href='http://localhost:8000/api/v1/manager/attendance/report/'>Download Attendance Report</a>
+        <a href='http://localhost:8000/api/v1/manager/leave/report/'>Download Leave Report</a>
+      </div>
     </div>
   )
 }

@@ -1,55 +1,29 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaCalendarCheck } from 'react-icons/fa';
+// import axios from 'axios';
 
-const Attendance = () => { 
-  const attendanceData = useMemo(() => [
-    {
-      Date: '01/04/2024',
-      EmployeeName: 'Steph',
-      Email: 'steph@plutohr.com',
-      Position: 'Developer',
-      Department: 'Software',
-      TimeIn: '9:20a m',
-      Timeout: '5:00pm',
-      HoursWorked: '7hr 40 mins',
-    },
-    {
-      Date: '02/04/2024',
-      EmployeeName: 'Martin',
-      Email: 'martin@plutohr.com',
-      Position: 'Developer',
-      Department: 'Software',
-      TimeIn: '8:20a m',
-      Timeout: '4:50pm',
-      HoursWorked: '8hr 40 mins',
-    },
-    {
-      Date: '03/04/2024',
-      EmployeeName: 'Angella',
-      Email: 'angel@plutohr.com',
-      Position: 'HR',
-      Department: 'Human Resoucrce',
-      TimeIn: '9:20a m',
-      Timeout: '5:00pm',
-      HoursWorked: '7hr 40 mins',
-    },
-  ], [])
+const Attendance = ({ user }) => {
+  const [hoursWorked, setHoursWorked] = useState(null);
 
-  const [filteredData, setFilteredData] = useState(attendanceData); 
-  const [searchTerm, setSearchTerm] = useState(''); 
   useEffect(() => {
-    const filterData = attendanceData.filter((item) => {
-      const searchTextLower = searchTerm.toLowerCase();
-      return (
-        item.Date.toLowerCase().includes(searchTextLower)
-      );
-    });
-    setFilteredData(filterData);
-  }, [searchTerm, attendanceData]); 
+    const calculateHoursWorked = () => {
+      const timeIn = new Date(user.timein);
+      const currentTime = new Date();
+      const differenceInMilliseconds = currentTime - timeIn;
+      const hours = Math.floor(differenceInMilliseconds / (1000 * 60 * 60));
+      const minutes = Math.floor((differenceInMilliseconds % (1000 * 60 * 60)) / (1000 * 60));
+      setHoursWorked(`${hours} hours ${minutes} minutes`);
+    };
 
-  const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
+    // Initial calculation
+    calculateHoursWorked();
+
+    // Update hours worked every minute
+    const intervalId = setInterval(calculateHoursWorked, 60000);
+
+    // Clear interval on component unmount
+    return () => clearInterval(intervalId);
+  }, [user.timein]);
 
   return (
     <div className='attendance'>
@@ -58,41 +32,35 @@ const Attendance = () => {
         Attendance
       </h3>
       <div className='attendance-display'>
-        <div className='search-table'>
-          <input
-            type='text'
-            className='search-input'
-            placeholder='Search a name/department'
-            value={searchTerm}
-            onChange={handleSearchChange}
-          />
-        </div>
         <table>
           <thead>
             <tr>
               <th>Date</th>
               <th>Employee Name</th>
-              <th>Email</th>
-              <th>Position</th>
-              <th>Department</th>
               <th>TimeIn</th>
               <th>Timeout</th>
               <th>Hours worked</th>
             </tr>
           </thead>
-          <tbody>
-            {filteredData.map((item) => (
-              <tr key={item.Date}> 
-                <td>{item.Date}</td>
-                <td>{item.EmployeeName}</td>
-                <td><a href={`mailto: ${item.Email}`}>{item.Email}</a></td>
-                <td>{item.Position}</td>
-                <td>{item.Department}</td>
-                <td>{item.TimeIn}</td>
-                <td>{item.Timeout}</td>
-                <td>{item.HoursWorked}</td>
+          {/* <tbody>
+            {attendanceData.map((item, index) => (
+              <tr key={index}>
+                <td>{item.date}</td>
+                <td>{item.employee}</td>
+                <td>{item.time_in}</td>
+                <td>{item.time_out}</td>
+                <td>{item.hoursworked}</td>
               </tr>
             ))}
+          </tbody> */}
+          <tbody>
+              <tr>
+                <td>{user.loginDate}</td>
+                <td>{user.username}</td>
+                <td>{user.timein.split(' ')[1]}</td>
+                <td>{user.time_out}</td>
+                <td>{hoursWorked}</td>
+              </tr>
           </tbody>
         </table>
       </div>
