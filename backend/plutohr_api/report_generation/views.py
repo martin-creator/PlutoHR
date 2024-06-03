@@ -138,9 +138,19 @@ class LeaveReportView(APIView):
         # you shoud iterate through the leave records and get the employee details for each record
         # all records should be written to the csv file
 
+        # for record in leave_records:
+        #     employee = User.objects.get(id=record.employee.id)
+        #     writer.writerow([employee.id, employee.username, record.start_date, record.end_date, record.reason, record.status, record.comments, record.leave_balance])
+            
+        # return response
         for record in leave_records:
-            employee = User.objects.get(id=record.employee.id)
-            writer.writerow([employee.id, employee.username, record.start_date, record.end_date, record.reason, record.status, record.comments, record.leave_balance])
+            try:
+                employee = User.objects.get(id=record.employee.id)
+                writer.writerow([employee.id, employee.username, record.start_date, record.end_date, record.reason, record.status, record.comments, record.leave_balance])
+            except AttributeError:
+                # If there's an AttributeError, it means the employee ID is None
+                # So, just write the record with dummy employee details
+                writer.writerow(['dummy_employee_id', 'dummy_employee_name', record.start_date, record.end_date, record.reason, record.status, record.comments, record.leave_balance])
             
         return response
     
