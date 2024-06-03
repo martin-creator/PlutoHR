@@ -10,8 +10,8 @@
 ## Overview
 As part of our training at Tunga Tech Impact Academy, we have been tasked to develop a software solution to help organizations manage and optimize their human resource functions such as employee onboarding, attendance tracking, leave management, and reporting.
 ## Demo Links
-*[Frontend-Web App](https://plutohr.onrender.com/)
-*[Backend-API](https://plutohr-yh2n.onrender.com/api/schema/swagger-ui/)
+* [Frontend-Web App](https://plutohr.onrender.com/)
+* [Backend-API](https://plutohr-yh2n.onrender.com/api/schema/swagger-ui/)
 ## Objective
 Develop an HR system to address the most essential functionalities needed to
 streamline Human Resource processes and improve employee management
