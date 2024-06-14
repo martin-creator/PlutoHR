@@ -66,6 +66,7 @@ Ready features
 ## Room for Improvement
 
 Room for improvement:
+- Computer vision for attendance
 - Improve the api endpoints
 - Display specific user attendance to the user
 - Improve login authentication
